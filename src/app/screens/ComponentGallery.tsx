@@ -13,6 +13,7 @@ import { tokens } from '../../design-system/theme';
 import { Checkbox } from '../../design-system/components/Checkbox';
 import { Card, CardHorizontal, HorizontalCardVariant, CardVariant } from '../../design-system/components/Card';
 import { Text } from 'react-native-paper';
+import { FilterChip } from '../../design-system/components/Chip/FilterChip';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -247,6 +248,13 @@ const ComponentGallery: React.FC = () => {
             style={{ marginBottom: 8 }}
             accessibilityLabel="Ejemplo HorizontalCardVariant"
           />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Filter Chips</RNText>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+          <FilterChip label="Label" />
+          <FilterChip label="Label" showCaret />
+          <FilterChip label="Label" leadingIcon="briefcase" />
+          <FilterChip label="Label" disabled />
         </View>
         {/* Add more component examples here */}
       </ScrollView>

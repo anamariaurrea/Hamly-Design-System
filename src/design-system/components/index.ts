@@ -5,7 +5,7 @@ export * from './BottomSheet';
 export * from './Button';
 export * from './Card';
 export * from './Checkbox/Checkbox';
-export * from './Chip/Chip';
+export * from './Chip/FilterChip';
 export * from './Divider/Divider';
 export * from './ExpansionPanel/ExpansionPanel';
 export * from './List';
