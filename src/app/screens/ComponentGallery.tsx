@@ -5,18 +5,10 @@ import { AppBar } from '../../design-system/components/AppBar';
 import { Avatar } from '../../design-system/components/Avatar';
 import { Badge } from '../../design-system/components/Badge';
 import { BottomSheet } from '../../design-system/components/BottomSheet';
-import { Button, IconButton, SegmentedButtons, SplitButton } from '../../design-system/components/Button';
-import { Divider } from '../../design-system/components/Divider';
+import { Button, IconButton, SegmentedButtons } from '../../design-system/components/Button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
-import { Checkbox } from '../../design-system/components/Checkbox';
-import { Card, CardHorizontal, HorizontalCardVariant, CardVariant } from '../../design-system/components/Card';
-import { Text } from 'react-native-paper';
-import { FilterChip } from '../../design-system/components/Chip/FilterChip';
-import { ListItemImage } from '../../design-system/components/List/ListItemImage';
-import { NavigationBar } from '../../design-system/components/NavigationBar/NavigationBar';
-import { RadioButton } from '../../design-system/components/RadioButton/RadioButton';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -24,15 +16,6 @@ const ComponentGallery: React.FC = () => {
   const [sheetVisible, setSheetVisible] = React.useState(false);
   const [period, setPeriod] = React.useState('week');
   const [periodSm, setPeriodSm] = React.useState('day');
-  const [radioChecked, setRadioChecked] = React.useState(false);
-  // NavigationBar demo hooks
-  const [selected, setSelected] = React.useState('home');
-  const navItems = [
-    { key: 'home', label: 'Inicio', icon: 'home' },
-    { key: 'search', label: 'Buscar', icon: 'magnify', badge: 3 },
-    { key: 'profile', label: 'Perfil', icon: 'account' },
-    { key: 'settings', label: 'Ajustes', icon: 'cog', disabled: true },
-  ];
 
   return (
     <DesignSystemProvider>
@@ -56,7 +39,6 @@ const ComponentGallery: React.FC = () => {
           <Badge variant="large" value={3} accessibilityLabel="Notificaciones 3" />
           <Badge variant="small" accessibilityLabel="Alerta pequeña" />
         </View>
-        <Divider />
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>BottomSheet</RNText>
         <Button label="Abrir BottomSheet" variant="filled" onPress={() => setSheetVisible(true)} style={{ marginBottom: 12 }} />
         <BottomSheet
@@ -66,7 +48,6 @@ const ComponentGallery: React.FC = () => {
         >
           <RNText>Este es el contenido del BottomSheet. Puedes poner aquí cualquier componente.</RNText>
         </BottomSheet>
-        <Divider inset />
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Buttons</RNText>
         <View style={{ gap: 12 }}>
           <Button label="Filled" variant="filled" size="medium" icon="check" />
@@ -112,196 +93,6 @@ const ComponentGallery: React.FC = () => {
             size="sm"
           />
         </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Split Button (outlined)</RNText>
-        <View style={{ gap: 12 }}>
-          <SplitButton
-            label="Guardar"
-            onPrimaryPress={() => alert('Primary pressed')}
-            onSecondaryPress={() => alert('Secondary pressed')}
-          />
-          <SplitButton
-            label="Guardar"
-            disabled
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
-          />
-          <SplitButton
-            label="Guardar"
-            loading
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
-          />
-          <SplitButton
-            label="Guardar"
-            size="sm"
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
-          />
-          <SplitButton
-            label="Guardar"
-            size="lg"
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
-          />
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Checkboxes (Material)</RNText>
-        <View style={{ flexDirection: 'row', gap: 32 }}>
-          {/* Primera columna: con label */}
-          <View style={{ gap: 12 }}>
-            {/* Unselected */}
-            <Checkbox label="Unselected" state="unchecked" onPress={() => { }} />
-            {/* Selected */}
-            <Checkbox label="Selected" state="checked" onPress={() => { }} />
-            {/* Indeterminate */}
-            <Checkbox label="Indeterminate" state="indeterminate" onPress={() => { }} />
-            {/* Error unselected */}
-            <Checkbox label="Error" state="unchecked" error onPress={() => { }} />
-            {/* Error selected */}
-            <Checkbox label="Error" state="checked" error onPress={() => { }} />
-            {/* Error indeterminate */}
-            <Checkbox label="Error" state="indeterminate" error onPress={() => { }} />
-            {/* Disabled */}
-            <Checkbox label="Disabled" state="checked" disabled onPress={() => { }} />
-          </View>
-          {/* Segunda columna: sin label */}
-          <View style={{ gap: 12 }}>
-            <Checkbox state="unchecked" onPress={() => { }} />
-            <Checkbox state="checked" onPress={() => { }} />
-            <Checkbox state="indeterminate" onPress={() => { }} />
-            <Checkbox state="unchecked" error onPress={() => { }} />
-            <Checkbox state="checked" error onPress={() => { }} />
-            <Checkbox state="indeterminate" error onPress={() => { }} />
-            <Checkbox state="checked" disabled onPress={() => { }} />
-          </View>
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Cards</RNText>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 8 }} contentContainerStyle={{ gap: 16 }}>
-          {/* Ejemplo CardVariant */}
-          <View style={{ width: 280 }}>
-            <CardVariant
-              title="Fundamentos de la Radio"
-              rating={1}
-              maxStars={3}
-              image={{ uri: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80' }}
-              style={{ width: '100%' }}
-              accessibilityLabel="CardVariant ejemplo"
-            />
-          </View>
-          {/* Cards existentes */}
-          {[
-            {
-              id: '1',
-              title: 'Curso de React Native',
-              meta: '3 módulos · 12 lecciones',
-              desc: 'Aprende a crear apps móviles con React Native y Material Design.',
-              img: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
-            },
-            {
-              id: '2',
-              title: 'Diseño de Interfaces',
-              meta: '5 módulos · 20 lecciones',
-              desc: 'Domina los principios de UI/UX y prototipado rápido.',
-              img: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80',
-            },
-            {
-              id: '3',
-              title: 'Animaciones en Apps',
-              meta: '2 módulos · 8 lecciones',
-              desc: 'Crea experiencias interactivas y animadas en tus aplicaciones.',
-              img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-            },
-          ].map(c => (
-            <Card
-              key={c.id}
-              mode="outlined"
-              style={{ width: 280, borderRadius: 16 }}
-              accessibilityLabel={`Curso ${c.title}`}
-            >
-              <Card.Cover
-                source={{ uri: c.img }}
-                style={{ width: '100%', height: 140, borderTopLeftRadius: 16, borderTopRightRadius: 16, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
-                theme={{ roundness: 0 }}
-              />
-              <Card.Content style={{ gap: 6, paddingVertical: 12 }}>
-                <Text variant="titleMedium">{c.title}</Text>
-                <Text variant="bodySmall" style={{ opacity: 0.7 }}>{c.meta}</Text>
-                <Text variant="bodySmall" style={{ opacity: 0.8 }}>{c.desc}</Text>
-                <Button variant="filled" style={{ marginTop: 8, borderRadius: 24 }} label="Comenzar curso" />
-              </Card.Content>
-            </Card>
-          ))}
-        </ScrollView>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Horizontal Cards</RNText>
-        <View style={{ gap: 16 }}>
-          <CardHorizontal
-            title="Álgebra básica"
-            meta="2 módulos · 8 lecciones"
-            image={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
-            completed={false}
-            labelForAvatar="Algebra"
-            style={{ marginBottom: 8 }}
-            accessibilityLabel="Curso Álgebra básica"
-          />
-          <CardHorizontal
-            title="Álgebra básica"
-            meta="2 módulos · 8 lecciones"
-            image={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
-            completed={true}
-            labelForAvatar="Algebra"
-            style={{ marginBottom: 8 }}
-            accessibilityLabel="Curso Álgebra básica completado"
-          />
-          <HorizontalCardVariant
-            title="Nombre"
-            category="Categoría"
-            valueRight="1,500px"
-            position={1}
-            labelForAvatar="Ana"
-            style={{ marginBottom: 8 }}
-            accessibilityLabel="Ejemplo HorizontalCardVariant"
-          />
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Filter Chips</RNText>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
-          <FilterChip label="Label" />
-          <FilterChip label="Label" showCaret />
-          <FilterChip label="Label" leadingIcon="briefcase" />
-          <FilterChip label="Label" disabled />
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>List Items</RNText>
-        <View style={{ gap: 8 }}>
-          <ListItemImage
-            title="How did you radio..."
-            author="VK4HAT"
-            date="Aug 11"
-            year="2018"
-            preview="Hi there and welcome!"
-            imageUri="https://picsum.photos/seed/ham/200"
-            liked
-            likesCount={21}
-            onPress={() => { }}
-            onLikePress={() => { }}
-          />
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Navigation Bar</RNText>
-        <View style={{ marginBottom: 24 }}>
-          {/* Ejemplo de NavigationBar */}
-          <NavigationBar
-            items={navItems}
-            selectedKey={selected}
-            onChange={setSelected}
-            style={{ marginHorizontal: -16 }}
-            testID="gallery-nav-bar"
-          />
-        </View>
-        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Radio Buttons</RNText>
-        {/* Ejemplo controlado: un solo radio button que cambia de estado al hacer clic */}
-        <RadioButton
-          value="demo"
-          status={radioChecked ? 'checked' : 'unchecked'}
-          label={radioChecked ? 'Seleccionado' : 'No seleccionado'}
-          onPress={() => setRadioChecked(!radioChecked)}
-        />
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>

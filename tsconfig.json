@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "jsx": "react-native",
     "allowJs": true,
     "noEmit": true,
@@ -21,7 +21,10 @@
       "src/*": [
         "src/*"
       ]
-    }
+    },
+    "customConditions": [
+      "react-native"
+    ]
   },
   "exclude": [
     "node_modules",

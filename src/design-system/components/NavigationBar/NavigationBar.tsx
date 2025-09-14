@@ -27,6 +27,7 @@ const PILL_HEIGHT = 32;
 const PILL_RADIUS = radius.round ?? 9999;
 const BADGE_SIZE = 18;
 const VERTICAL_GAP = 6;
+const BAR_HEIGHT = 56;
 
 // Helper to add alpha to hex color
 const withAlpha = (hex: string, alpha: number) => {
@@ -105,7 +106,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     <View
       style={[
         styles.container,
-        { backgroundColor: surfaceVariant, paddingBottom: Math.max(bottom, 8) },
+        { paddingBottom: Math.max(bottom, 0), backgroundColor: surfaceVariant, height: BAR_HEIGHT + Math.max(bottom, 0) },
         style,
       ]}
       testID={testID}
@@ -118,18 +119,19 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    minHeight: 64,
+    justifyContent: 'center', // Centra horizontalmente
+    alignItems: 'center', // Centra verticalmente
+    height: BAR_HEIGHT, // Alto fijo
     paddingHorizontal: spacing(2),
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#E0E0E0',
   },
   item: {
-    flex: 1,
+    flex: 1, // Estira cada item a lo ancho
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
+    paddingVertical: 0,
+    paddingHorizontal: 0, // Elimina padding extra
   },
   pill: {
     minWidth: 32,

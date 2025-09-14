@@ -3,5 +3,4 @@ export * from './IconButton';
 export { default as IconButton } from './IconButton';
 export { default as SegmentedButtons } from './SegmentedButtons';
 export * from './SegmentedButtons';
-export { default as SplitButton } from './SplitButton';
 export * from './SplitButton';
