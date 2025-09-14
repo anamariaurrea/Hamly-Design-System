@@ -1,10 +1,16 @@
 // Checkbox.tsx
 import React from 'react';
-import { View, Pressable, StyleSheet, ViewStyle } from 'react-native';
-import { Checkbox as PaperCheckbox, Text, useTheme } from 'react-native-paper';
-import type { MD3Theme } from 'react-native-paper';
+import { Pressable, StyleSheet, ViewStyle } from 'react-native';
+import {
+  Checkbox as PaperCheckbox,
+
+  Text,
+  useTheme,
+  type MD3Theme,
+} from 'react-native-paper';
 
 export type CheckboxState = 'unchecked' | 'checked' | 'indeterminate';
+
 export interface DSCheckboxProps {
   state?: CheckboxState;
   error?: boolean;
@@ -16,17 +22,15 @@ export interface DSCheckboxProps {
   accessibilityLabel?: string;
 }
 
-function withAlpha(color: string, alpha: number) {
-  // color: #RRGGBB or #AARRGGBB
-  if (color.length === 7) {
-    // #RRGGBB
-    const a = Math.round(alpha * 255).toString(16).padStart(2, '0');
-    return `#${a}${color.slice(1)}`;
-  }
-  return color;
-}
+const withAlpha = (hex: string, alpha: number) => {
+  if (!hex?.startsWith('#') || hex.length < 7) return hex;
+  const a = Math.round(alpha * 255)
+    .toString(16)
+    .padStart(2, '0');
+  return `#${a}${hex.slice(1)}`;
+};
 
-const Checkbox: React.FC<DSCheckboxProps> = ({
+const DSCheckbox: React.FC<DSCheckboxProps> = ({
   state = 'unchecked',
   error = false,
   disabled = false,
@@ -37,61 +41,78 @@ const Checkbox: React.FC<DSCheckboxProps> = ({
   accessibilityLabel,
 }) => {
   const theme = useTheme<MD3Theme>();
-  const checkedColor = error ? theme.colors.error : theme.colors.primary;
-  const uncheckedColor = error ? theme.colors.error : theme.colors.outline;
-  const labelColor = error ? theme.colors.error : theme.colors.onSurface;
-  const disabledLabelColor = withAlpha(theme.colors.onSurface, 0.38);
 
-  const status: 'checked' | 'unchecked' | 'indeterminate' = state;
+  // Colores MD3 según estado
+  const primary = theme.colors.primary;
+  const outline = theme.colors.outline;
+  const onSurface = theme.colors.onSurface;
+  const errorColor = theme.colors.error;
 
-  const accessibilityState: any = {
+  const checkedColor = error ? errorColor : primary;          // relleno azul (o error)
+  const uncheckedColor = error ? errorColor : outline;        // borde gris
+  const labelColor = disabled ? withAlpha(onSurface, 0.38) : onSurface;
+  const ripple = withAlpha(checkedColor, 0.12);
+
+  // Accesibilidad
+  const a11yState: any = {
     checked: state === 'checked',
     disabled,
     mixed: state === 'indeterminate' ? true : undefined,
   };
 
-  const labelStyle = [
-    {
-      color: disabled ? disabledLabelColor : labelColor,
-      marginLeft: 8,
-      fontSize: theme.fonts.bodyLarge?.fontSize ?? 16,
-    },
-  ];
-
   return (
     <Pressable
-      style={[styles.container, style, { minHeight: 44 }]}
+      style={[styles.row, style]}
       onPress={disabled ? undefined : onPress}
+      android_ripple={{ color: ripple, borderless: true }}
       accessibilityRole="checkbox"
-      accessibilityState={accessibilityState}
+      accessibilityState={a11yState}
       accessibilityLabel={accessibilityLabel || label}
       testID={testID}
       disabled={disabled}
+      hitSlop={8}
     >
-      <PaperCheckbox
-        status={status}
+      {/* Usa el checkbox cuadrado de MD3 */}
+      <PaperCheckbox.Android
+        status={state}
         onPress={onPress}
         disabled={disabled}
-        color={checkedColor}
-        uncheckedColor={uncheckedColor}
-        testID={testID}
+        color={checkedColor}            // ✓ y fill
+        uncheckedColor={uncheckedColor} // borde gris cuando está off
+        theme={{
+          colors: {
+            // asegura contraste del icono interno (✓ o –)
+            onPrimary: theme.colors.onPrimary,
+          },
+        }}
+        // Ajuste de tamaño para verse como la maqueta (~20px)
+        style={styles.box}
       />
-      {label ? (
-        <Text style={labelStyle} numberOfLines={1}>
+
+      {!!label && (
+        <Text variant="bodyLarge" style={[styles.label, { color: labelColor }]}>
           {label}
         </Text>
-      ) : null}
+      )}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 44,
   },
+  // El componente no expone `size`; escalamos suavemente
+  box: {
+    transform: [{ scale: 1.05 }], // ≈20px visuales
+    marginRight: 8,
+  },
+  label: {
+    flexShrink: 1,
+  },
 });
 
-export default Checkbox;
-export { Checkbox };
+export default DSCheckbox;
+export { DSCheckbox as Checkbox };

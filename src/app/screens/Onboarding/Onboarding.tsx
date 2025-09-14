@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, Platform, Pressable } from 'react-native';
-import { useTheme, Button, Text, Menu, Portal, Checkbox } from 'react-native-paper';
+import { useTheme, Button, Text, Menu, Portal } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Divider } from '../../../design-system/components/Divider';
 import { LinearProgress } from '../../../design-system/components/Progress/Linear';
 import { spacing } from '../../../design-system/tokens/spacing';
 import { radius } from '../../../design-system/tokens/radius';
+import { Button as CustomButton } from '../../../design-system/components/Button';
+import { Checkbox } from '../../../design-system/components/Checkbox';
 
 const AGE_OPTIONS = ['Menor de 15 años', '15 - 25 años', '26 - 45 años', '46 años o más'];
 const EXP_OPTIONS = [
@@ -15,12 +17,9 @@ const EXP_OPTIONS = [
   'Soy radioaficionado y me gustaría aprender más',
 ];
 const GOALS = [
-  'Aprender sobre radioafición',
-  'Obtener licencia de radioaficionado',
-  'Conectar con otros radioaficionados',
-  'Participar en emergencias y desastres',
-  'Explorar la comunicación a larga distancia',
-  'Desarrollar habilidades técnicas',
+  'Quiero mejorar mis habilidades y aprender algo nuevo',
+  'Me interesa compartir mi conocimiento y ayudar a otros',
+  'Solo estoy explorando y viendo de qué se trata la radioafición.',
 ];
 
 const OnboardingWelcome: React.FC = () => {
@@ -138,7 +137,7 @@ const OnboardingWelcome: React.FC = () => {
                       key={label}
                       onPress={() => setGoals((prev) => ({ ...prev, [label]: !prev[label] }))}
                       style={{
-                        backgroundColor: theme.colors.surfaceVariant,
+                        backgroundColor: theme.colors.surface,
                         borderRadius: radius.md,
                         paddingHorizontal: spacing.md,
                         paddingVertical: 14,
@@ -153,9 +152,9 @@ const OnboardingWelcome: React.FC = () => {
                         {label}
                       </Text>
                       <Checkbox
-                        status={checked ? 'checked' : 'unchecked'}
+                        state={checked ? 'checked' : 'unchecked'}
                         onPress={() => setGoals((prev) => ({ ...prev, [label]: !prev[label] }))}
-                        disabled={false}
+                        color={theme.colors.primary}
                         testID={`goal-${label}`}
                       />
                     </Pressable>
