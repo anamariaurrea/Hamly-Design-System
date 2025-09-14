@@ -14,6 +14,8 @@ import { Checkbox } from '../../design-system/components/Checkbox';
 import { Card, CardHorizontal, HorizontalCardVariant, CardVariant } from '../../design-system/components/Card';
 import { Text } from 'react-native-paper';
 import { FilterChip } from '../../design-system/components/Chip/FilterChip';
+import { ListItemImage } from '../../design-system/components/List/ListItemImage';
+import { NavigationBar } from '../../design-system/components/NavigationBar/NavigationBar';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -21,6 +23,14 @@ const ComponentGallery: React.FC = () => {
   const [sheetVisible, setSheetVisible] = React.useState(false);
   const [period, setPeriod] = React.useState('week');
   const [periodSm, setPeriodSm] = React.useState('day');
+  // NavigationBar demo hooks
+  const [selected, setSelected] = React.useState('home');
+  const navItems = [
+    { key: 'home', label: 'Inicio', icon: 'home' },
+    { key: 'search', label: 'Buscar', icon: 'magnify', badge: 3 },
+    { key: 'profile', label: 'Perfil', icon: 'account' },
+    { key: 'settings', label: 'Ajustes', icon: 'cog', disabled: true },
+  ];
 
   return (
     <DesignSystemProvider>
@@ -255,6 +265,32 @@ const ComponentGallery: React.FC = () => {
           <FilterChip label="Label" showCaret />
           <FilterChip label="Label" leadingIcon="briefcase" />
           <FilterChip label="Label" disabled />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>List Items</RNText>
+        <View style={{ gap: 8 }}>
+          <ListItemImage
+            title="How did you radio..."
+            author="VK4HAT"
+            date="Aug 11"
+            year="2018"
+            preview="Hi there and welcome!"
+            imageUri="https://picsum.photos/seed/ham/200"
+            liked
+            likesCount={21}
+            onPress={() => { }}
+            onLikePress={() => { }}
+          />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Navigation Bar</RNText>
+        <View style={{ marginBottom: 24 }}>
+          {/* Ejemplo de NavigationBar */}
+          <NavigationBar
+            items={navItems}
+            selectedKey={selected}
+            onChange={setSelected}
+            style={{ marginHorizontal: -16 }}
+            testID="gallery-nav-bar"
+          />
         </View>
         {/* Add more component examples here */}
       </ScrollView>

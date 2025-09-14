@@ -11,7 +11,7 @@ import { spacing as spacingTokens } from '../tokens/spacing';
 import { typography } from '../tokens/typography';
 import { radius as radiusTokens, getPillRadius } from '../tokens/radius';
 import { motion } from '../tokens/motion';
-import type { MD3Theme } from 'react-native-paper';
+import { MD3LightTheme, configureFonts, type MD3Theme } from 'react-native-paper';
 import { buildThemeFromTokens } from './fromMaterialBuilder';
 
 export const tokens = {
@@ -36,6 +36,23 @@ export function buildDarkTheme(): DesignSystemTheme {
 // Exporto un theme por defecto (light) para uso rápido en Provider.
 // Si prefieres no exportar un theme por defecto, quita esta línea y modifica DesignSystemProvider.
 export const paperTheme = buildLightTheme();
+
+// Hereda todos los fonts MD3 y permite overrides
+const fonts = configureFonts({
+  config: {
+    ...MD3LightTheme.fonts,
+    // Ejemplo de override:
+    // labelMedium: { ...MD3LightTheme.fonts.labelMedium, fontWeight: '600' },
+  },
+});
+
+// Construye el theme con tus tokens y combina los fonts MD3
+const baseTheme = buildLightTheme();
+
+export const theme: MD3Theme = {
+  ...baseTheme,
+  fonts,
+};
 
 export function spacing(multiplier: number = 1): number {
   // Usa spacing.base si existe, sino fallback a 8
