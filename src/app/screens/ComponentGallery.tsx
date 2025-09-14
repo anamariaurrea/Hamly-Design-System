@@ -5,7 +5,8 @@ import { AppBar } from '../../design-system/components/AppBar';
 import { Avatar } from '../../design-system/components/Avatar';
 import { Badge } from '../../design-system/components/Badge';
 import { BottomSheet } from '../../design-system/components/BottomSheet';
-import { Button, IconButton, SegmentedButtons } from '../../design-system/components/Button';
+import { Button, IconButton, SegmentedButtons, SplitButton } from '../../design-system/components/Button';
+import { Divider } from '../../design-system/components/Divider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
@@ -39,6 +40,7 @@ const ComponentGallery: React.FC = () => {
           <Badge variant="large" value={3} accessibilityLabel="Notificaciones 3" />
           <Badge variant="small" accessibilityLabel="Alerta pequeña" />
         </View>
+        <Divider />
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>BottomSheet</RNText>
         <Button label="Abrir BottomSheet" variant="filled" onPress={() => setSheetVisible(true)} style={{ marginBottom: 12 }} />
         <BottomSheet
@@ -48,6 +50,7 @@ const ComponentGallery: React.FC = () => {
         >
           <RNText>Este es el contenido del BottomSheet. Puedes poner aquí cualquier componente.</RNText>
         </BottomSheet>
+        <Divider inset />
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Buttons</RNText>
         <View style={{ gap: 12 }}>
           <Button label="Filled" variant="filled" size="medium" icon="check" />
@@ -91,6 +94,38 @@ const ComponentGallery: React.FC = () => {
             value={periodSm}
             onChange={setPeriodSm}
             size="sm"
+          />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Split Button (outlined)</RNText>
+        <View style={{ gap: 12 }}>
+          <SplitButton
+            label="Guardar"
+            onPrimaryPress={() => alert('Primary pressed')}
+            onSecondaryPress={() => alert('Secondary pressed')}
+          />
+          <SplitButton
+            label="Guardar"
+            disabled
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
+          />
+          <SplitButton
+            label="Guardar"
+            loading
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
+          />
+          <SplitButton
+            label="Guardar"
+            size="sm"
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
+          />
+          <SplitButton
+            label="Guardar"
+            size="lg"
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
           />
         </View>
         {/* Add more component examples here */}
