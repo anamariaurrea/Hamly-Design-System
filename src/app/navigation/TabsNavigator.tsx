@@ -8,7 +8,7 @@ import ComponentGallery from '../screens/ComponentGallery';
 const Tab = createBottomTabNavigator();
 
 const TabsNavigator = () => (
-  <Tab.Navigator>
+  <Tab.Navigator id={undefined}>
     <Tab.Screen name="Profile" component={Profile} />
     <Tab.Screen name="Login" component={LoginScreen} />
     <Tab.Screen name="ComponentGallery" component={ComponentGallery} />

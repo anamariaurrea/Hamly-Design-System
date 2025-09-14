@@ -9,7 +9,7 @@
 import { palettes, schemes } from '../tokens/color';
 import { spacing as spacingTokens } from '../tokens/spacing';
 import { typography } from '../tokens/typography';
-import { radius as radiusTokens } from '../tokens/radius';
+import { radius as radiusTokens, getPillRadius } from '../tokens/radius';
 import { motion } from '../tokens/motion';
 import type { MD3Theme } from 'react-native-paper';
 import { buildThemeFromTokens } from './fromMaterialBuilder';
@@ -51,3 +51,5 @@ export function getRadius(size: 'sm' | 'md' | 'lg' | number = 'md'): number {
 export function typographyScale(key: string) {
   return typography[key as keyof typeof typography] ?? typography.md;
 }
+
+export { getPillRadius } from '../tokens/radius';
