@@ -10,6 +10,9 @@ import { Divider } from '../../design-system/components/Divider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
+import { Checkbox } from '../../design-system/components/Checkbox';
+import { Card } from '../../design-system/components/Card';
+import { Text } from 'react-native-paper';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -128,6 +131,81 @@ const ComponentGallery: React.FC = () => {
             onSecondaryPress={() => { }}
           />
         </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Checkboxes (Material)</RNText>
+        <View style={{ flexDirection: 'row', gap: 32 }}>
+          {/* Primera columna: con label */}
+          <View style={{ gap: 12 }}>
+            {/* Unselected */}
+            <Checkbox label="Unselected" state="unchecked" onPress={() => { }} />
+            {/* Selected */}
+            <Checkbox label="Selected" state="checked" onPress={() => { }} />
+            {/* Indeterminate */}
+            <Checkbox label="Indeterminate" state="indeterminate" onPress={() => { }} />
+            {/* Error unselected */}
+            <Checkbox label="Error" state="unchecked" error onPress={() => { }} />
+            {/* Error selected */}
+            <Checkbox label="Error" state="checked" error onPress={() => { }} />
+            {/* Error indeterminate */}
+            <Checkbox label="Error" state="indeterminate" error onPress={() => { }} />
+            {/* Disabled */}
+            <Checkbox label="Disabled" state="checked" disabled onPress={() => { }} />
+          </View>
+          {/* Segunda columna: sin label */}
+          <View style={{ gap: 12 }}>
+            <Checkbox state="unchecked" onPress={() => { }} />
+            <Checkbox state="checked" onPress={() => { }} />
+            <Checkbox state="indeterminate" onPress={() => { }} />
+            <Checkbox state="unchecked" error onPress={() => { }} />
+            <Checkbox state="checked" error onPress={() => { }} />
+            <Checkbox state="indeterminate" error onPress={() => { }} />
+            <Checkbox state="checked" disabled onPress={() => { }} />
+          </View>
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Cards</RNText>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 8 }} contentContainerStyle={{ gap: 16 }}>
+          {[
+            {
+              id: '1',
+              title: 'Curso de React Native',
+              meta: '3 módulos · 12 lecciones',
+              desc: 'Aprende a crear apps móviles con React Native y Material Design.',
+              img: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+            },
+            {
+              id: '2',
+              title: 'Diseño de Interfaces',
+              meta: '5 módulos · 20 lecciones',
+              desc: 'Domina los principios de UI/UX y prototipado rápido.',
+              img: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80',
+            },
+            {
+              id: '3',
+              title: 'Animaciones en Apps',
+              meta: '2 módulos · 8 lecciones',
+              desc: 'Crea experiencias interactivas y animadas en tus aplicaciones.',
+              img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+            },
+          ].map(c => (
+            <Card
+              key={c.id}
+              mode="outlined"
+              style={{ width: 280, borderRadius: 16 }}
+              accessibilityLabel={`Curso ${c.title}`}
+            >
+              <Card.Cover
+                source={{ uri: c.img }}
+                style={{ width: '100%', height: 140, borderTopLeftRadius: 16, borderTopRightRadius: 16, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
+                theme={{ roundness: 0 }}
+              />
+              <Card.Content style={{ gap: 6, paddingVertical: 12 }}>
+                <Text variant="titleMedium">{c.title}</Text>
+                <Text variant="bodySmall" style={{ opacity: 0.7 }}>{c.meta}</Text>
+                <Text variant="bodySmall" style={{ opacity: 0.8 }}>{c.desc}</Text>
+                <Button variant="filled" style={{ marginTop: 8, borderRadius: 24 }} label="Comenzar curso" />
+              </Card.Content>
+            </Card>
+          ))}
+        </ScrollView>
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>
