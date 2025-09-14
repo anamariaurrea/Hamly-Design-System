@@ -5,7 +5,6 @@ import { useTheme, Text, Icon, TouchableRipple } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { spacing } from '../../theme';
 import { radius } from '../../tokens/radius';
-import { color } from '../../tokens/color';
 
 export type NavItem = {
   key: string;

@@ -16,6 +16,7 @@ import { Text } from 'react-native-paper';
 import { FilterChip } from '../../design-system/components/Chip/FilterChip';
 import { ListItemImage } from '../../design-system/components/List/ListItemImage';
 import { NavigationBar } from '../../design-system/components/NavigationBar/NavigationBar';
+import { RadioButton } from '../../design-system/components/RadioButton/RadioButton';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -23,6 +24,7 @@ const ComponentGallery: React.FC = () => {
   const [sheetVisible, setSheetVisible] = React.useState(false);
   const [period, setPeriod] = React.useState('week');
   const [periodSm, setPeriodSm] = React.useState('day');
+  const [radioChecked, setRadioChecked] = React.useState(false);
   // NavigationBar demo hooks
   const [selected, setSelected] = React.useState('home');
   const navItems = [
@@ -292,6 +294,14 @@ const ComponentGallery: React.FC = () => {
             testID="gallery-nav-bar"
           />
         </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Radio Buttons</RNText>
+        {/* Ejemplo controlado: un solo radio button que cambia de estado al hacer clic */}
+        <RadioButton
+          value="demo"
+          status={radioChecked ? 'checked' : 'unchecked'}
+          label={radioChecked ? 'Seleccionado' : 'No seleccionado'}
+          onPress={() => setRadioChecked(!radioChecked)}
+        />
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>
