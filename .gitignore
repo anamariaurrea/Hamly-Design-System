@@ -49,3 +49,11 @@ ios/
 .expo-shared/
 .env
 
+
+# macOS
+.DS_Store
+# Expo
+.expo
+.expo-shared
+# Node
+node_modules/

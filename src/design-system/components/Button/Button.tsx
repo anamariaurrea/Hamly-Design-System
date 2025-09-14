@@ -1,25 +1,20 @@
 // Button.tsx
 import * as React from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle, Platform } from 'react-native';
 import { Button as PaperButton, useTheme } from 'react-native-paper';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { tokens, spacing } from '../../theme';
+import { getRadius, tokens, getPillRadius } from '../../theme';
 
-export type ButtonVariant = 'filled' | 'tonal' | 'outline' | 'elevated' | 'text';
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonVariant = 'filled' | 'tonal' | 'outlined' | 'elevated' | 'text';
+export type ButtonSize = 'small' | 'medium';
 
 export interface DSButtonProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: string;
   label?: string;
-  children?: React.ReactNode;
-  loading?: boolean;
   disabled?: boolean;
-  fullWidth?: boolean;
   style?: ViewStyle;
   onPress?: () => void;
-  accessibilityLabel?: string;
 }
 
 export const Button: React.FC<DSButtonProps> = ({
@@ -27,121 +22,69 @@ export const Button: React.FC<DSButtonProps> = ({
   size = 'medium',
   icon,
   label,
-  children,
-  loading = false,
   disabled = false,
-  fullWidth = false,
   style,
   onPress,
-  accessibilityLabel,
   ...rest
 }) => {
   const theme = useTheme();
-  const roundness = theme.roundness ?? 8;
-
-  // Size mapping
-  const sizeStyles: Record<ButtonSize, { height: number; paddingH: number; fontSize: number }> = {
-    small: { height: 36, paddingH: spacing(2), fontSize: 13 },
-    medium: { height: 44, paddingH: spacing(3), fontSize: 15 },
-    large: { height: 52, paddingH: spacing(4), fontSize: 17 },
-  };
-  const { height, paddingH, fontSize } = sizeStyles[size];
+  const sizeHeights = { small: 36, medium: 48 };
+  const height = sizeHeights[size ?? 'medium'];
+  const pillRadius = getPillRadius(height);
 
   // Variant mapping
+  let mode: any = 'contained';
   let backgroundColor = theme.colors.primary;
-  let textColor = theme.colors.onPrimary;
+  let labelColor = theme.colors.onPrimary;
   let borderColor: string | undefined;
-  let elevation = 0;
-  let shadow: ViewStyle = {};
+  let borderWidth: number | undefined;
 
-  switch (variant) {
-    case 'filled':
-      backgroundColor = theme.colors.primary;
-      textColor = theme.colors.onPrimary;
-      break;
-    case 'tonal':
-      backgroundColor = theme.colors.secondaryContainer;
-      textColor = theme.colors.onSecondaryContainer;
-      break;
-    case 'outline':
-      backgroundColor = 'transparent';
-      textColor = theme.colors.primary;
-      borderColor = theme.colors.outlineVariant;
-      break;
-    case 'elevated':
-      backgroundColor = theme.colors.surface;
-      textColor = theme.colors.primary;
-      elevation = 2;
-      shadow = {
-        shadowColor: '#000',
-        shadowOpacity: 0.12,
-        shadowRadius: 2,
-        shadowOffset: { width: 0, height: 2 },
-      };
-      break;
-    case 'text':
-      backgroundColor = 'transparent';
-      textColor = theme.colors.primary;
-      break;
+  if (variant === 'filled') {
+    mode = 'contained';
+    backgroundColor = theme.colors.primary;
+    labelColor = theme.colors.onPrimary;
+  } else if (variant === 'tonal') {
+    mode = 'contained-tonal';
+    backgroundColor = theme.colors.secondaryContainer;
+    labelColor = theme.colors.onSecondaryContainer;
+  } else if (variant === 'outlined') {
+    mode = 'outlined';
+    borderColor = theme.colors.outlineVariant ?? theme.colors.outline;
+    borderWidth = 1;
+    backgroundColor = 'transparent';
+    labelColor = theme.colors.primary;
+  } else if (variant === 'elevated') {
+    mode = 'elevated';
+    backgroundColor = theme.colors.surface;
+    labelColor = theme.colors.primary;
+  } else if (variant === 'text') {
+    mode = 'text';
+    backgroundColor = 'transparent';
+    labelColor = theme.colors.primary;
   }
-
-  // Icon rendering
-  const renderIcon = icon
-    ? (props: { color: string; size: number }) => (
-      <MaterialCommunityIcons
-        name={icon}
-        size={fontSize + 5}
-        color={textColor}
-        style={{ marginRight: 6 }}
-      />
-    )
-    : undefined;
-
-  // Label fallback
-  const buttonLabel = label ?? (typeof children === 'string' ? children : undefined);
 
   return (
     <PaperButton
-      mode={
-        variant === 'filled'
-          ? 'contained'
-          : variant === 'tonal'
-            ? 'contained-tonal'
-            : variant === 'outline'
-              ? 'outlined'
-              : variant
-      }
-      icon={renderIcon}
-      loading={loading}
-      disabled={disabled}
+      mode={mode}
+      icon={icon}
       onPress={onPress}
-      style={[
-        styles.base,
-        {
-          height,
-          paddingHorizontal: paddingH,
-          borderRadius: roundness,
-          backgroundColor,
-          borderWidth: borderColor ? 1 : 0,
-          borderColor,
-          width: fullWidth ? '100%' : undefined,
-          elevation,
-          ...shadow,
-        },
-        style,
-      ]}
-      labelStyle={{
-        color: textColor,
-        fontSize,
-        fontWeight: '600',
-        textTransform: 'none',
-      }}
-      accessibilityRole="button"
-      accessibilityLabel={accessibilityLabel || buttonLabel}
+      disabled={disabled}
+      uppercase={false}
+      style={[{
+        borderRadius: pillRadius,
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+        backgroundColor,
+        ...(variant === 'outlined' ? { borderWidth, borderColor } : {}),
+      }, style]}
+      contentStyle={[{
+        minHeight: height,
+        paddingHorizontal: 16,
+        borderRadius: pillRadius,
+      }]}
+      labelStyle={{ fontWeight: '600', color: labelColor }}
       {...rest}
     >
-      {buttonLabel}
-      {typeof children !== 'string' ? children : null}
+      {label}
     </PaperButton>
   );
 };

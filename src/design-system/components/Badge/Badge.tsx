@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import type { MD3Theme } from 'react-native-paper';
 import { tokens, spacing } from '../../theme';
 
 // TODO: Temporal. Usar module augmentation para theme.colors en vez de 'as any'.
@@ -22,23 +23,15 @@ const Badge: React.FC<BadgeProps> = ({
   style,
   accessibilityLabel,
 }) => {
-  const theme = useTheme();
-  const colors = theme.colors as any;
+  const theme = useTheme<MD3Theme>();
+  const { colors } = theme;
   if (!visible) return null;
-
-  // Colors with fallback
-  const errorColor = colors.error || tokens.palettes.secondary['40'] || '#B00020';
-  const notificationColor = colors.notification || tokens.palettes.primary['40'] || '#6200ee';
 
   if (variant === 'small') {
     // Dot badge
     return (
       <View
-        style={[
-          styles.dot,
-          { backgroundColor: errorColor },
-          style,
-        ]}
+        style={[styles.dot, { backgroundColor: colors.error }, style]}
         accessibilityRole="image"
         accessibilityLabel={accessibilityLabel || 'Alerta pequeña'}
       />
@@ -52,7 +45,7 @@ const Badge: React.FC<BadgeProps> = ({
       style={[
         styles.large,
         {
-          backgroundColor: notificationColor,
+          backgroundColor: colors.error,
           minWidth: 16,
           maxWidth: 34,
           paddingHorizontal: 4,
@@ -62,7 +55,7 @@ const Badge: React.FC<BadgeProps> = ({
       accessibilityRole="text"
       accessibilityLabel={accessibilityLabel || `Notificaciones${badgeValue ? ': ' + badgeValue : ''}`}
     >
-      <Text style={styles.text}>{badgeValue}</Text>
+      <Text style={[styles.text, { color: colors.onError }]}>{badgeValue}</Text>
     </View>
   );
 };

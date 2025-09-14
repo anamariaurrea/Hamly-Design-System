@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 import { Avatar } from '../../design-system/components/Avatar';
 import { Badge } from '../../design-system/components/Badge';
 import { BottomSheet } from '../../design-system/components/BottomSheet';
-import { Button } from '../../design-system/components/Button';
+import { Button, IconButton, SegmentedButtons } from '../../design-system/components/Button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
@@ -14,6 +14,8 @@ const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
   const [sheetVisible, setSheetVisible] = React.useState(false);
+  const [period, setPeriod] = React.useState('week');
+  const [periodSm, setPeriodSm] = React.useState('day');
 
   return (
     <DesignSystemProvider>
@@ -51,13 +53,45 @@ const ComponentGallery: React.FC = () => {
           <Button label="Filled" variant="filled" size="medium" icon="check" />
           <Button label="Filled Disabled" variant="filled" size="medium" disabled />
           <Button label="Tonal" variant="tonal" size="medium" icon="star-outline" />
-          <Button label="Outline" variant="outline" size="medium" icon="send" />
+          <Button label="Outline" variant="outlined" size="medium" icon="send" />
           <Button label="Elevated" variant="elevated" size="medium" icon="star-outline" />
           <Button label="Text" variant="text" size="medium" icon="send" />
           <Button label="Small" variant="filled" size="small" />
-          <Button label="Large" variant="filled" size="large" />
-          <Button label="Loading" variant="filled" loading />
-          <Button label="Full Width" variant="filled" fullWidth />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>IconButtons</RNText>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <IconButton icon="heart-outline" variant="standard" size="md" accessibilityLabel="Favorito" style={{ marginRight: 16 }} />
+          <IconButton icon="check" variant="filled" size="md" selected accessibilityLabel="Seleccionado" style={{ marginRight: 16 }} />
+          <IconButton icon="star" variant="tonal" size="lg" accessibilityLabel="Estrella" style={{ marginRight: 16 }} />
+          <IconButton icon="share-variant" variant="outlined" size="sm" accessibilityLabel="Compartir" style={{ marginRight: 16 }} />
+          <IconButton icon="heart-outline" variant="filled" size="md" disabled accessibilityLabel="Favorito deshabilitado" style={{ marginRight: 16 }} />
+          <IconButton icon="star" variant="tonal" size="lg" disabled accessibilityLabel="Estrella deshabilitada" />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Segmented Buttons (Outlined — single select)</RNText>
+        <View style={{ gap: 16 }}>
+          {/* Example 1: fullWidth, size md */}
+          <SegmentedButtons
+            options={[
+              { value: 'day', label: 'Day', icon: 'calendar-today' },
+              { value: 'week', label: 'Week', icon: 'calendar-week' },
+              { value: 'month', label: 'Month', icon: 'calendar-month' },
+            ]}
+            value={period}
+            onChange={setPeriod}
+            size="md"
+            fullWidth
+          />
+          {/* Example 2: size sm, not fullWidth */}
+          <SegmentedButtons
+            options={[
+              { value: 'day', label: 'Day' },
+              { value: 'week', label: 'Week' },
+              { value: 'month', label: 'Month' },
+            ]}
+            value={periodSm}
+            onChange={setPeriodSm}
+            size="sm"
+          />
         </View>
         {/* Add more component examples here */}
       </ScrollView>
