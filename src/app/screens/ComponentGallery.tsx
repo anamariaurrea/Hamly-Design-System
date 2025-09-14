@@ -32,6 +32,7 @@ import {
   LinearProgressWave,
   Circular,
 } from "../../design-system/components/Progress";
+import { ExpansionPanel } from "../../design-system/components/ExpansionPanel";
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -44,6 +45,7 @@ const ComponentGallery: React.FC = () => {
   const [p, setP] = React.useState(0.2);
   const [waveP, setWaveP] = React.useState(0.5);
   const [wp, setWp] = React.useState(0.6);
+  const [open, setOpen] = React.useState(false);
   // NavigationBar demo hooks
   const [selected, setSelected] = React.useState("home");
   const navItems = [
@@ -256,26 +258,26 @@ const ComponentGallery: React.FC = () => {
           <SplitButton
             label="Guardar"
             disabled
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
+            onPrimaryPress={() => {}}
+            onSecondaryPress={() => {}}
           />
           <SplitButton
             label="Guardar"
             loading
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
+            onPrimaryPress={() => {}}
+            onSecondaryPress={() => {}}
           />
           <SplitButton
             label="Guardar"
             size="sm"
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
+            onPrimaryPress={() => {}}
+            onSecondaryPress={() => {}}
           />
           <SplitButton
             label="Guardar"
             size="lg"
-            onPrimaryPress={() => { }}
-            onSecondaryPress={() => { }}
+            onPrimaryPress={() => {}}
+            onSecondaryPress={() => {}}
           />
         </View>
         <RNText
@@ -287,48 +289,48 @@ const ComponentGallery: React.FC = () => {
           {/* Primera columna: con label */}
           <View style={{ gap: 12 }}>
             {/* Unselected */}
-            <Checkbox label="Unselected" state="unchecked" onPress={() => { }} />
+            <Checkbox label="Unselected" state="unchecked" onPress={() => {}} />
             {/* Selected */}
-            <Checkbox label="Selected" state="checked" onPress={() => { }} />
+            <Checkbox label="Selected" state="checked" onPress={() => {}} />
             {/* Indeterminate */}
             <Checkbox
               label="Indeterminate"
               state="indeterminate"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             {/* Error unselected */}
             <Checkbox
               label="Error"
               state="unchecked"
               error
-              onPress={() => { }}
+              onPress={() => {}}
             />
             {/* Error selected */}
-            <Checkbox label="Error" state="checked" error onPress={() => { }} />
+            <Checkbox label="Error" state="checked" error onPress={() => {}} />
             {/* Error indeterminate */}
             <Checkbox
               label="Error"
               state="indeterminate"
               error
-              onPress={() => { }}
+              onPress={() => {}}
             />
             {/* Disabled */}
             <Checkbox
               label="Disabled"
               state="checked"
               disabled
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </View>
           {/* Segunda columna: sin label */}
           <View style={{ gap: 12 }}>
-            <Checkbox state="unchecked" onPress={() => { }} />
-            <Checkbox state="checked" onPress={() => { }} />
-            <Checkbox state="indeterminate" onPress={() => { }} />
-            <Checkbox state="unchecked" error onPress={() => { }} />
-            <Checkbox state="checked" error onPress={() => { }} />
-            <Checkbox state="indeterminate" error onPress={() => { }} />
-            <Checkbox state="checked" disabled onPress={() => { }} />
+            <Checkbox state="unchecked" onPress={() => {}} />
+            <Checkbox state="checked" onPress={() => {}} />
+            <Checkbox state="indeterminate" onPress={() => {}} />
+            <Checkbox state="unchecked" error onPress={() => {}} />
+            <Checkbox state="checked" error onPress={() => {}} />
+            <Checkbox state="indeterminate" error onPress={() => {}} />
+            <Checkbox state="checked" disabled onPress={() => {}} />
           </View>
         </View>
         <RNText
@@ -485,8 +487,8 @@ const ComponentGallery: React.FC = () => {
             imageUri="https://picsum.photos/seed/ham/200"
             liked
             likesCount={21}
-            onPress={() => { }}
-            onLikePress={() => { }}
+            onPress={() => {}}
+            onLikePress={() => {}}
           />
         </View>
         <RNText
@@ -582,6 +584,81 @@ const ComponentGallery: React.FC = () => {
             variant="outlined"
             label="+10%"
             onPress={() => setWp((x) => Math.min(1, x + 0.1))}
+          />
+        </View>
+        <Text
+          variant="headlineSmall"
+          style={{ marginTop: 24, marginBottom: 8 }}
+        >
+          Expansion Panel
+        </Text>
+        {/* Ejemplo no controlado */}
+        <ExpansionPanel
+          levelLabel="NIVEL 1"
+          title="Item"
+          defaultExpanded={false}
+          items={[
+            {
+              id: "1",
+              card: {
+                title: "¿Qué es la radioafición?",
+                meta: "Subhead",
+                image: { uri: "https://picsum.photos/seed/ham1/200/200" },
+                labelForAvatar: "A",
+              },
+            },
+            {
+              id: "2",
+              card: {
+                title: "¿Qué es la radioafición?",
+                meta: "Subhead",
+                image: { uri: "https://picsum.photos/seed/ham2/200/200" },
+                labelForAvatar: "A",
+              },
+            },
+            {
+              id: "3",
+              card: {
+                title: "¿Qué es la radioafición?",
+                meta: "Subhead",
+                image: { uri: "https://picsum.photos/seed/ham3/200/200" },
+                labelForAvatar: "A",
+              },
+            },
+          ]}
+        />
+        {/* Ejemplo controlado */}
+        <View style={{ marginTop: 16 }}>
+          <Button
+            variant="outlined"
+            label="Alternar panel"
+            onPress={() => setOpen((prev) => !prev)}
+          />
+          <ExpansionPanel
+            levelLabel="NIVEL 1"
+            title="Item"
+            expanded={open}
+            onToggle={setOpen}
+            items={[
+              {
+                id: "a",
+                card: {
+                  title: "¿Qué es la radioafición?",
+                  meta: "Subhead",
+                  image: { uri: "https://picsum.photos/seed/ham4/200/200" },
+                  labelForAvatar: "A",
+                },
+              },
+              {
+                id: "b",
+                card: {
+                  title: "¿Qué es la radioafición?",
+                  meta: "Subhead",
+                  image: { uri: "https://picsum.photos/seed/ham5/200/200" },
+                  labelForAvatar: "A",
+                },
+              },
+            ]}
           />
         </View>
       </ScrollView>

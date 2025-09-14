@@ -8,6 +8,7 @@ export * from "./Checkbox/Checkbox";
 export * from "./Chip/FilterChip";
 export * from "./Divider/Divider";
 export * from "./ExpansionPanel/ExpansionPanel";
+export * from "./ExpansionPanel";
 export * from "./List";
 export * from "./Menu/Menu";
 export * from "./NavigationBar/NavigationBar";
