@@ -258,26 +258,26 @@ const ComponentGallery: React.FC = () => {
           <SplitButton
             label="Guardar"
             disabled
-            onPrimaryPress={() => {}}
-            onSecondaryPress={() => {}}
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
           />
           <SplitButton
             label="Guardar"
             loading
-            onPrimaryPress={() => {}}
-            onSecondaryPress={() => {}}
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
           />
           <SplitButton
             label="Guardar"
             size="sm"
-            onPrimaryPress={() => {}}
-            onSecondaryPress={() => {}}
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
           />
           <SplitButton
             label="Guardar"
             size="lg"
-            onPrimaryPress={() => {}}
-            onSecondaryPress={() => {}}
+            onPrimaryPress={() => { }}
+            onSecondaryPress={() => { }}
           />
         </View>
         <RNText
@@ -289,48 +289,48 @@ const ComponentGallery: React.FC = () => {
           {/* Primera columna: con label */}
           <View style={{ gap: 12 }}>
             {/* Unselected */}
-            <Checkbox label="Unselected" state="unchecked" onPress={() => {}} />
+            <Checkbox label="Unselected" state="unchecked" onPress={() => { }} />
             {/* Selected */}
-            <Checkbox label="Selected" state="checked" onPress={() => {}} />
+            <Checkbox label="Selected" state="checked" onPress={() => { }} />
             {/* Indeterminate */}
             <Checkbox
               label="Indeterminate"
               state="indeterminate"
-              onPress={() => {}}
+              onPress={() => { }}
             />
             {/* Error unselected */}
             <Checkbox
               label="Error"
               state="unchecked"
               error
-              onPress={() => {}}
+              onPress={() => { }}
             />
             {/* Error selected */}
-            <Checkbox label="Error" state="checked" error onPress={() => {}} />
+            <Checkbox label="Error" state="checked" error onPress={() => { }} />
             {/* Error indeterminate */}
             <Checkbox
               label="Error"
               state="indeterminate"
               error
-              onPress={() => {}}
+              onPress={() => { }}
             />
             {/* Disabled */}
             <Checkbox
               label="Disabled"
               state="checked"
               disabled
-              onPress={() => {}}
+              onPress={() => { }}
             />
           </View>
           {/* Segunda columna: sin label */}
           <View style={{ gap: 12 }}>
-            <Checkbox state="unchecked" onPress={() => {}} />
-            <Checkbox state="checked" onPress={() => {}} />
-            <Checkbox state="indeterminate" onPress={() => {}} />
-            <Checkbox state="unchecked" error onPress={() => {}} />
-            <Checkbox state="checked" error onPress={() => {}} />
-            <Checkbox state="indeterminate" error onPress={() => {}} />
-            <Checkbox state="checked" disabled onPress={() => {}} />
+            <Checkbox state="unchecked" onPress={() => { }} />
+            <Checkbox state="checked" onPress={() => { }} />
+            <Checkbox state="indeterminate" onPress={() => { }} />
+            <Checkbox state="unchecked" error onPress={() => { }} />
+            <Checkbox state="checked" error onPress={() => { }} />
+            <Checkbox state="indeterminate" error onPress={() => { }} />
+            <Checkbox state="checked" disabled onPress={() => { }} />
           </View>
         </View>
         <RNText
@@ -487,8 +487,8 @@ const ComponentGallery: React.FC = () => {
             imageUri="https://picsum.photos/seed/ham/200"
             liked
             likesCount={21}
-            onPress={() => {}}
-            onLikePress={() => {}}
+            onPress={() => { }}
+            onLikePress={() => { }}
           />
         </View>
         <RNText
@@ -660,6 +660,41 @@ const ComponentGallery: React.FC = () => {
               },
             ]}
           />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: "bold", fontSize: 18 }}>
+          App Bar — Variantes
+        </RNText>
+        <View style={{ borderWidth: 1, borderColor: '#B39DDB', borderStyle: 'dashed', borderRadius: 16, padding: 16, marginBottom: 24 }}>
+          {/* Variante split button */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+            <SplitButton
+              label="Temas"
+              onPrimaryPress={() => alert('SplitButton: Primary pressed')}
+              onSecondaryPress={() => alert('SplitButton: Secondary pressed')}
+              icon="star"
+              style={{ flex: 1 }}
+            />
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+              <IconButton icon="lightning-bolt" size={20} />
+              <RNText style={{ marginLeft: 4 }}>0</RNText>
+            </View>
+          </View>
+          {/* Variante label */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+            <RNText style={{ fontSize: 20, flex: 1 }}>Diccionario</RNText>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+              <IconButton icon="lightning-bolt" size={20} />
+              <RNText style={{ marginLeft: 4 }}>0</RNText>
+            </View>
+          </View>
+          {/* Variante label-icon */}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <RNText style={{ fontSize: 20, flex: 1 }}>Diccionario</RNText>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+              <IconButton icon="star" size={20} />
+              <IconButton icon="star" size={20} style={{ marginLeft: 8 }} />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </DesignSystemProvider>
