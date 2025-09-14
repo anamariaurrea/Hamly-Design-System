@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
 import { Checkbox } from '../../design-system/components/Checkbox';
-import { Card } from '../../design-system/components/Card';
+import { Card, CardHorizontal, HorizontalCardVariant } from '../../design-system/components/Card';
 import { Text } from 'react-native-paper';
 
 const ComponentGallery: React.FC = () => {
@@ -206,6 +206,36 @@ const ComponentGallery: React.FC = () => {
             </Card>
           ))}
         </ScrollView>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Horizontal Cards</RNText>
+        <View style={{ gap: 16 }}>
+          <CardHorizontal
+            title="Álgebra básica"
+            meta="2 módulos · 8 lecciones"
+            image={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
+            completed={false}
+            labelForAvatar="Algebra"
+            style={{ marginBottom: 8 }}
+            accessibilityLabel="Curso Álgebra básica"
+          />
+          <CardHorizontal
+            title="Álgebra básica"
+            meta="2 módulos · 8 lecciones"
+            image={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' }}
+            completed={true}
+            labelForAvatar="Algebra"
+            style={{ marginBottom: 8 }}
+            accessibilityLabel="Curso Álgebra básica completado"
+          />
+          <HorizontalCardVariant
+            title="Nombre"
+            category="Categoría"
+            valueRight="1,500px"
+            position={1}
+            labelForAvatar="Ana"
+            style={{ marginBottom: 8 }}
+            accessibilityLabel="Ejemplo HorizontalCardVariant"
+          />
+        </View>
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>

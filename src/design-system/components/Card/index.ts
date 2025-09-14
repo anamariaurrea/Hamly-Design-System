@@ -1,3 +1,4 @@
 export { default as Card } from './Card';
-export * from './Card';
-export * from './CardHorizontal';
+export { default as CardHorizontal } from './CardHorizontal';
+export type { HorizontalCardProps } from './CardHorizontal';
+export * from './HorizontalCardVariant';

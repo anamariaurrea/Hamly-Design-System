@@ -36,7 +36,7 @@ const DSCard: React.FC<DSCardProps> = ({
   if (mode === 'outlined') {
     cardStyle = {
       ...cardStyle,
-      borderWidth: 1,
+      borderWidth: StyleSheet.hairlineWidth, // Match CardHorizontal border size
       borderColor: theme.colors.outlineVariant ?? theme.colors.outline,
       backgroundColor: theme.colors.surface,
       elevation: 0,
