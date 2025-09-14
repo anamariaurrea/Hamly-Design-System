@@ -17,6 +17,7 @@ import { FilterChip } from '../../design-system/components/Chip/FilterChip';
 import { ListItemImage } from '../../design-system/components/List/ListItemImage';
 import { NavigationBar } from '../../design-system/components/NavigationBar/NavigationBar';
 import { RadioButton } from '../../design-system/components/RadioButton/RadioButton';
+import { TextField } from '../../design-system/components/TextField';
 
 const ComponentGallery: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -25,6 +26,7 @@ const ComponentGallery: React.FC = () => {
   const [period, setPeriod] = React.useState('week');
   const [periodSm, setPeriodSm] = React.useState('day');
   const [radioChecked, setRadioChecked] = React.useState(false);
+  const [tfValue, setTfValue] = React.useState("");
   // NavigationBar demo hooks
   const [selected, setSelected] = React.useState('home');
   const navItems = [
@@ -301,6 +303,16 @@ const ComponentGallery: React.FC = () => {
           status={radioChecked ? 'checked' : 'unchecked'}
           label={radioChecked ? 'Seleccionado' : 'No seleccionado'}
           onPress={() => setRadioChecked(!radioChecked)}
+        />
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Text Fields</RNText>
+        <TextField
+          label="Label"
+          leadingIcon="magnify"
+          value={tfValue}
+          onChangeText={setTfValue}
+          placeholder="Escribe aquí"
+          accessibilityLabel="Campo de texto de ejemplo"
+          style={{ marginBottom: 12 }}
         />
         {/* Add more component examples here */}
       </ScrollView>
