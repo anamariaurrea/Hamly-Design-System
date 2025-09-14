@@ -6,6 +6,7 @@ import { Avatar } from '../../design-system/components/Avatar';
 import { Badge } from '../../design-system/components/Badge';
 import { BottomSheet } from '../../design-system/components/BottomSheet';
 import { Button, IconButton, SegmentedButtons } from '../../design-system/components/Button';
+import { Button, IconButton, SegmentedButtons } from '../../design-system/components/Button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
@@ -16,6 +17,7 @@ const ComponentGallery: React.FC = () => {
   const [sheetVisible, setSheetVisible] = React.useState(false);
   const [period, setPeriod] = React.useState('week');
   const [periodSm, setPeriodSm] = React.useState('day');
+  const [segValue, setSegValue] = React.useState('day');
 
   return (
     <DesignSystemProvider>
@@ -93,6 +95,28 @@ const ComponentGallery: React.FC = () => {
             size="sm"
           />
         </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Icon Buttons</RNText>
+        <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+          <IconButton icon="heart-outline" variant="standard" />
+          <IconButton icon="heart" variant="filled" selected />
+          <IconButton icon="star" variant="tonal" />
+          <IconButton icon="share-variant" variant="outlined" />
+          <IconButton icon="bell" variant="filled" size="sm" />
+          <IconButton icon="camera" variant="tonal" size="lg" />
+          <IconButton icon="trash-can-outline" variant="standard" disabled />
+        </View>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Segmented Buttons</RNText>
+        <SegmentedButtons
+          options={[
+            { value: 'day', label: 'Day', icon: 'weather-sunny' },
+            { value: 'week', label: 'Week', icon: 'calendar-week' },
+            { value: 'month', label: 'Month', icon: 'calendar-month' },
+          ]}
+          value={segValue}
+          onChange={setSegValue}
+          size="md"
+          fullWidth
+        />
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>
