@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import AppBar from '../../src/design-system/components/AppBar';
+import { AppBar } from '../../design-system/components/AppBar';
 
 const Leagues: React.FC = () => (
   <SafeAreaView style={styles.safe}>
-    <AppBar title="Ligas" badgeCount={0} onPressLeft={() => {}} />
+    <AppBar title="Ligas" badgeCount={0} onPressLeft={() => { }} />
     <View style={styles.content}>
       <Text variant="headlineMedium">Ligas</Text>
       <Text>Información de ligas (placeholder)</Text>

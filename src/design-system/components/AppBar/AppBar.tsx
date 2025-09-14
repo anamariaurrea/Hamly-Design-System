@@ -1,187 +1,152 @@
-import React from 'react';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ViewStyle,
-  ImageSourcePropType,
-  Platform,
-} from 'react-native';
-import { IconButton, Text, useTheme } from 'react-native-paper';
-import type { Theme as PaperTheme } from 'react-native-paper';
+import * as React from 'react';
+import { View, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import { Text, useTheme, IconButton } from 'react-native-paper';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Tokens (ajusta ruta si tu estructura es distinta)
-import { spacing } from '../../tokens/spacing';
-import { typography } from '../../tokens/typography';
-import { radius } from '../../tokens/radius';
-import { color } from '../../tokens/color';
-import { motion } from '../../tokens/motion';
+// Usamos SafeAreaView para respetar la zona segura superior (notch/status bar) en headers.
 
 export interface AppBarProps {
+  onClick?: () => void;
+  leftIconName?: string; // MaterialCommunityIcons name
+  boltIconName?: string; // MaterialCommunityIcons name
   title?: string;
-  badgeCount?: number;
-  onPressLeft?: () => void;
-  leftImage?: ImageSourcePropType;
-  showDropdown?: boolean;
+  count?: number;
   style?: ViewStyle;
 }
 
-/**
- * AppBar - Design System wrapper
- *
- * Usa tokens (spacing/typography/radius) y react-native-paper theme.
- *
- * Assets: por defecto usará:
- *   require('../../../../assets/icon.png') y require('../../../../assets/bolt.png')
- * Si tus assets están en otra ruta, pásalos vía `leftImage` o ajusta los require.
- *
- * Ejemplo:
- * <AppBar title="Cursos" badgeCount={3} onPressLeft={() => {}} />
- */
-export const AppBar: React.FC<AppBarProps> = ({
+// Named export for AppBarContent if needed elsewhere
+export const AppBarContent: React.FC<Pick<AppBarProps, 'title' | 'count'>> = ({
   title = 'Cursos',
-  badgeCount = 0,
-  onPressLeft,
-  leftImage,
-  showDropdown = true,
-  style,
+  count = 0,
 }) => {
-  const theme: PaperTheme = useTheme();
-
-  // Fallbacks si tokens no contienen algo (comentario: fallback aplicado)
-  // spacing.md -> 16, typography.bodyLarge.size -> 16, radius.round -> 9999
-  // Si tus tokens difieren, actualiza los imports.
-  const horizontalPadding = spacing?.md ?? 16;
-  const verticalPadding = spacing?.sm ?? 8;
-  const titleFontSize = typography?.md?.fontSize ?? 16;
-  const titleFontWeight = typography?.md?.fontWeight ?? '600';
-  const pillRadius = radius?.round ?? 9999;
-  const outline = theme.colors?.outline ?? color?.neutral?.['30'] ?? '#E0E0E0';
-
-  // default assets (ajusta ruta si hace falta)
-  const leftAsset =
-    leftImage ?? require('../../../../assets/icon.png'); /* si el require no existe, pásalo por props */
-  const boltAsset = require('../../../../assets/bolt.png');
-
+  const theme = useTheme();
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: theme.colors.surface,
-          borderBottomColor: outline,
-          paddingHorizontal: horizontalPadding,
-          paddingTop: Platform.OS === 'ios' ? verticalPadding + 4 : verticalPadding,
-          height: 80,
-        },
-        style,
-      ]}
-    >
-      <View style={styles.leftContainer}>
-        <TouchableOpacity
-          onPress={onPressLeft}
-          activeOpacity={0.7}
-          accessible
-          accessibilityRole="button"
-          accessibilityLabel={`${title} menu`}
-          style={[
-            styles.pill,
-            {
-              borderRadius: pillRadius,
-              borderColor: outline,
-              backgroundColor: theme.colors.surface,
-              paddingVertical: verticalPadding - 2,
-              paddingHorizontal: horizontalPadding / 1.5,
-            },
-          ]}
-        >
-          <Image source={leftAsset} style={[styles.icon]} />
-          <Text
-            variant="bodyLarge"
-            style={{
-              ...styles.title,
-              color: theme.colors.onSurface,
-              fontSize: titleFontSize,
-              fontWeight: titleFontWeight as any,
-            }}
-            numberOfLines={1}
-          >
-            {title}
-          </Text>
-
-          {showDropdown && (
-            <IconButton
-              icon="chevron-down"
-              size={18}
-              onPress={onPressLeft}
-              style={styles.chevBtn}
-              iconColor={theme.colors.onSurface}
-              accessibilityLabel="Abrir opciones"
-            />
-          )}
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.rightContainer}>
-        <Image source={boltAsset} style={styles.boltIcon} />
-        <Text
-          variant="bodyLarge"
-          style={{
-            marginLeft: 8,
-            fontSize: titleFontSize,
-            fontWeight: '700',
-            color: theme.colors.onSurface,
-          }}
-        >
-          {badgeCount}
-        </Text>
+    <View style={styles.contentContainer}>
+      <Text style={[styles.title, { color: theme.colors.onSurface }]}>{title}</Text>
+      <MaterialCommunityIcons
+        name="chevron-down"
+        size={20}
+        color={theme.colors.onSurface}
+        style={styles.chevron}
+      />
+      <View style={styles.boltContainer}>
+        <MaterialCommunityIcons
+          name="bolt"
+          size={20}
+          color={theme.colors.primary}
+        />
+        <Text style={[styles.count, { color: theme.colors.primary }]}>{count}</Text>
       </View>
     </View>
   );
 };
 
-export default AppBar;
+const AppBar: React.FC<AppBarProps> = ({
+  onClick,
+  leftIconName = 'book-outline',
+  boltIconName = 'bolt',
+  title = 'Cursos',
+  count = 0,
+  style,
+}) => {
+  const theme = useTheme();
+
+  return (
+    <SafeAreaView edges={['top']} style={{ backgroundColor: theme.colors.surface }}>
+      <View style={[styles.root, { backgroundColor: theme.colors.surface }, style]}>
+        {/* Left pill with icon and title */}
+        <TouchableOpacity
+          style={[styles.leftPill, { backgroundColor: theme.colors.surface }]}
+          onPress={onClick}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel={title}
+        >
+          <MaterialCommunityIcons
+            name={leftIconName}
+            size={22}
+            color={theme.colors.primary}
+            style={styles.leftIcon}
+          />
+          <Text style={[styles.pillText, { color: theme.colors.onSurface }]}>{title}</Text>
+          <MaterialCommunityIcons
+            name="chevron-down"
+            size={20}
+            color={theme.colors.onSurface}
+            style={styles.chevron}
+          />
+        </TouchableOpacity>
+        {/* Right bolt icon and count */}
+        <View style={styles.rightContainer}>
+          <MaterialCommunityIcons
+            name={boltIconName}
+            size={22}
+            color={theme.colors.primary}
+            style={styles.boltIcon}
+          />
+          <Text style={[styles.count, { color: theme.colors.primary }]}>{count}</Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
+  root: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 10,
-    // paddingHorizontal and height handled inline to use tokens/fallbacks
+    paddingHorizontal: 16,
+    minHeight: 56,
+    paddingBottom: 8,
+    backgroundColor: 'transparent',
   },
-  leftContainer: {
+  leftPill: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    elevation: 1,
+  },
+  leftIcon: {
+    marginRight: 8,
+  },
+  pillText: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginRight: 4,
+  },
+  chevron: {
+    marginLeft: 2,
   },
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'transparent',
   },
   boltIcon: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
+    marginRight: 4,
   },
-  pill: {
+  count: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
   },
-  icon: {
-    width: 16,
-    height: 16,
-    resizeMode: 'contain',
-    marginRight: 6,
+  boltContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 12,
   },
   title: {
-    maxWidth: 160,
-  },
-  chevBtn: {
-    margin: 0,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
+
+export default AppBar;
 

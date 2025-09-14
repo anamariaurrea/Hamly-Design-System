@@ -3,60 +3,51 @@
  * Theme builder for React Native Paper using design-system tokens.
  *
  * Example:
- * import { buildLightTheme, buildDarkTheme, tokens } from './theme';
+ * import { buildLightTheme, buildDarkTheme, spacing, getRadius, typographyScale, tokens } from './theme';
  */
 
 import { palettes, schemes } from '../tokens/color';
-import { spacing } from '../tokens/spacing';
+import { spacing as spacingTokens } from '../tokens/spacing';
 import { typography } from '../tokens/typography';
-import { radius } from '../tokens/radius';
+import { radius as radiusTokens } from '../tokens/radius';
 import { motion } from '../tokens/motion';
+import type { MD3Theme } from 'react-native-paper';
+import { buildThemeFromTokens } from './fromMaterialBuilder';
 
 export const tokens = {
   palettes,
   schemes,
-  spacing,
+  spacing: spacingTokens,
   typography,
-  radius,
+  radius: radiusTokens,
   motion
 } as const;
 
-function buildTheme(scheme: typeof schemes.light, dark: boolean) {
-  return {
-    dark,
-    roundness: radius.md,
-    colors: {
-      primary: scheme.primary,
-      accent: scheme.secondary,
-      background: scheme.background,
-      surface: scheme.surface,
-      text: scheme.onSurface,
-      disabled: scheme.outline,
-      placeholder: scheme.outlineVariant,
-      backdrop: scheme.scrim,
-      notification: scheme.error,
-      error: scheme.error
-    },
-    fonts: {
-      regular: typography.md,
-      medium: typography.lg,
-      light: typography.sm,
-      thin: typography.xs
-    },
-    animation: {
-      scale: 1,
-      ...motion.duration
-    },
-    tokens
-  };
+export type DesignSystemTheme = MD3Theme;
+
+export function buildLightTheme(): DesignSystemTheme {
+  return buildThemeFromTokens(tokens, 'light');
 }
 
-export function buildLightTheme() {
-  return buildTheme(schemes.light, false);
+export function buildDarkTheme(): DesignSystemTheme {
+  return buildThemeFromTokens(tokens, 'dark');
 }
 
-export function buildDarkTheme() {
-  return buildTheme(schemes.dark, true);
+// Exporto un theme por defecto (light) para uso rápido en Provider.
+// Si prefieres no exportar un theme por defecto, quita esta línea y modifica DesignSystemProvider.
+export const paperTheme = buildLightTheme();
+
+export function spacing(multiplier: number = 1): number {
+  // Usa spacing.base si existe, sino fallback a 8
+  const base = spacingTokens.sm ?? 8;
+  return base * multiplier;
 }
 
-export default tokens;
+export function getRadius(size: 'sm' | 'md' | 'lg' | number = 'md'): number {
+  if (typeof size === 'number') return size;
+  return radiusTokens[size] ?? 8;
+}
+
+export function typographyScale(key: string) {
+  return typography[key as keyof typeof typography] ?? typography.md;
+}
