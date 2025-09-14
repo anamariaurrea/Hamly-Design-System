@@ -109,72 +109,74 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 
   // --- Render ---
   if (isWave) {
+    const stroke = Math.max(4, Math.round(h * 0.6));
+    const svgH = h + stroke * 2;
+    const cy = Math.round(svgH / 2) + 0.5;
+
     return (
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          height: rowHeight,
-          width: '100%',
-          ...style,
-        }}
+        style={{ flexDirection: 'row', alignItems: 'center', height: svgH, width: '100%', overflow: 'visible', ...style }}
+        onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
         testID={testID}
         accessibilityLabel={accessibilityLabel}
         accessibilityRole="progressbar"
         accessibilityValue={{ now: Math.round(clampedValue * 100), min: 0, max: 100 }}
       >
-        {/* Track SVG */}
-        <View
-          style={{ flex: 1, height: h, justifyContent: 'center' }}
-          onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
-        >
+        <View style={{ flex: 1, height: svgH }}>
           {containerWidth > 0 && (() => {
-            const progressWidth = containerWidth * clampedValue;
-            const trackEnd = containerWidth - iconSize / 2 - iconMargin - iconGap;
+            const iconSize = 32;
+            const iconGap = 0;
+            const iconMargin = 0;
+            const trackEnd = containerWidth - iconSize / 2 - iconGap - iconMargin;
+            const progW = Math.min(containerWidth * clampedValue, trackEnd);
+
+            let waveD = '';
+            if (progW > 0) {
+              waveD = `M 0 ${cy}`;
+              for (let x = 0; x <= progW; x += 2) {
+                const y = cy + Math.sin((x / (waveWavelength ?? 40)) * 2 * Math.PI + offset) * (waveAmplitude ?? 4);
+                waveD += ` L ${x} ${y}`;
+              }
+            }
+
+            const restD =
+              progW < trackEnd
+                ? `M ${Math.min(trackEnd, progW + stroke * 0.5)} ${cy} L ${trackEnd} ${cy}`
+                : '';
+
             return (
-              <>
-                {/* Onda (solo hasta progress) */}
-                <Svg height={h} width={containerWidth}>
+              <Svg height={svgH} width={containerWidth}>
+                {progW > 0 && (
                   <Path
-                    d={wavePath(progressWidth, trackEnd)}
+                    d={waveD}
                     stroke={progressColor}
-                    strokeWidth={waveStroke}
-                    strokeLinecap="butt"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                </Svg>
-                {/* Resto del track (delgado, termina antes del icono) */}
-                <Svg height={h} width={containerWidth}>
-                  <Path
-                    d={restPath(progressWidth, trackEnd)}
-                    stroke={trackBg}
-                    strokeWidth={waveStroke}
+                    strokeWidth={stroke}
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     fill="none"
                   />
-                </Svg>
-                {/* Stop dot */}
-                {progressWidth > 0 && progressWidth < trackEnd && (
-                  <Circle
-                    cx={progressWidth}
-                    cy={centerY}
-                    r={waveStroke / 2}
-                    fill={progressColor}
-                    stroke={progressColor}
-                    strokeWidth={2}
+                )}
+                {restD && (
+                  <Path
+                    d={restD}
+                    stroke={trackBg}
+                    strokeWidth={stroke}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
                   />
                 )}
-              </>
+                {progW > 0 && progW < trackEnd && (
+                  <Circle cx={progW} cy={cy} r={stroke / 2} fill={progressColor} />
+                )}
+              </Svg>
             );
           })()}
         </View>
-        {/* Icono Vector */}
-        <View style={{ width: iconSize, height: iconSize, marginLeft: iconGap, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ width: 32, height: 32, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={require('../../../../assets/Vector.png')}
-            style={{ width: iconSize, height: iconSize, zIndex: 2 }}
+            style={{ width: 32, height: 32 }}
             resizeMode="contain"
           />
         </View>
@@ -321,71 +323,77 @@ export const LinearProgressWave: React.FC<LinearProgressWaveProps> = ({
     return d;
   }
   function restPath(progressWidth: number) {
-    if (progressWidth >= trackEnd) return '';
-    const start = Math.min(trackEnd, progressWidth + waveStroke * 0.5);
-    return `M ${start} ${centerY} L ${trackEnd} ${centerY}`;
+    const end = typeof trackEnd === 'number' ? trackEnd : progressWidth;
+    if (progressWidth >= end) return '';
+    const start = Math.min(end, progressWidth + waveStroke * 0.5);
+    return `M ${start} ${centerY} L ${end} ${centerY}`;
   }
 
+  // --- Render ---
   return (
     <View
-      style={{
-        overflow: 'visible',
-        height: svgHeight,
-        ...style,
-      }}
-      onLayout={(e: LayoutChangeEvent) => setContainerWidth(e.nativeEvent.layout.width)}
+      style={{ flexDirection: 'row', alignItems: 'center', height: svgHeight, width: '100%', overflow: 'visible', ...style }}
+      onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
       testID={testID}
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="progressbar"
       accessibilityValue={{ now: Math.round(clampedValue * 100), min: 0, max: 100 }}
     >
-      {containerWidth > 0 && (
-        <Svg height={svgHeight} width={containerWidth}>
-          {/* Onda (solo hasta progress) */}
-          <Path
-            d={wavePath(Math.min(progressWidth, trackEnd))}
-            stroke={progressColor}
-            strokeWidth={waveStroke}
-            strokeLinecap="butt"
-            strokeLinejoin="round"
-            fill="none"
+      <View style={{ flex: 1, height: svgHeight }}>
+        {containerWidth > 0 && (() => {
+          const progW = Math.min(containerWidth * clampedValue, trackEnd);
+
+          let waveD = '';
+          if (progW > 0) {
+            waveD = `M 0 ${centerY}`;
+            for (let x = 0; x <= progW; x += 2) {
+              const y = centerY + Math.sin((x / λ) * 2 * Math.PI + offset) * amp;
+              waveD += ` L ${x} ${y}`;
+            }
+          }
+
+          const restD =
+            progW < trackEnd
+              ? `M ${Math.min(trackEnd, progW + waveStroke * 0.5)} ${centerY} L ${trackEnd} ${centerY}`
+              : '';
+
+          return (
+            <Svg height={svgHeight} width={containerWidth}>
+              {progW > 0 && (
+                <Path
+                  d={waveD}
+                  stroke={progressColor}
+                  strokeWidth={waveStroke}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              )}
+              {restD && (
+                <Path
+                  d={restD}
+                  stroke={trackBg}
+                  strokeWidth={waveStroke}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              )}
+              {progW > 0 && progW < trackEnd && showStopDot && (
+                <Circle cx={progW} cy={centerY} r={waveStroke / 2} fill={progressColor} />
+              )}
+            </Svg>
+          );
+        })()}
+      </View>
+      {showVectorIcon && (
+        <View style={{ width: 32, height: 32, justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            source={require('../../../../assets/Vector.png')}
+            style={{ width: 32, height: 32 }}
+            resizeMode="contain"
           />
-          {/* Resto del track (delgado, termina antes del icono) */}
-          <Path
-            d={restPath(progressWidth)}
-            stroke={trackBg}
-            strokeWidth={waveStroke}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-          {/* Stop dot */}
-          {progressWidth > 0 && progressWidth < trackEnd && (
-            <Circle
-              cx={progressWidth}
-              cy={centerY}
-              r={waveStroke / 2}
-              fill={progressColor}
-              stroke={progressColor}
-              strokeWidth={2}
-            />
-          )}
-        </Svg>
-      )}
-      {/* Vector image más pequeño, con margen y espacio respecto al track */}
-      {showVectorIcon && containerWidth > 0 && (
-        <Image
-          source={require('../../../../assets/Vector.png')}
-          style={{
-            position: 'absolute',
-            right: iconMargin,
-            top: Math.round(centerY - iconSize / 2),
-            width: iconSize,
-            height: iconSize,
-            zIndex: 2,
-          }}
-          resizeMode="contain"
-        />
+        </View>
       )}
     </View>
   );
