@@ -51,8 +51,8 @@ export const LinearProgress: React.FC<LinearProgressProps> = ({
 
   // Configuración de layout
   const iconSize = 32;
-  const iconMargin = 12;
-  const iconGap = 8;
+  const iconMargin = 0;
+  const iconGap = 0;
   const rowHeight = Math.max(h, iconSize);
   // const trackEnd = containerWidth - iconSize / 2 - iconMargin - iconGap;
 
