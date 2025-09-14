@@ -170,11 +170,9 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
           height: animatedHeight,
           opacity: animatedOpacity,
           overflow: "hidden",
-          backgroundColor: surfaceVariant,
+          backgroundColor: surface,
           borderBottomLeftRadius: radius.lg,
           borderBottomRightRadius: radius.lg,
-          borderColor: outlineVariant,
-          borderWidth: StyleSheet.hairlineWidth,
           borderTopWidth: 0,
         }}
       >
@@ -195,15 +193,6 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
                   completed={item.card.completed}
                   labelForAvatar={item.card.labelForAvatar}
                   onPress={item.card.onPress}
-                />
-              )}
-              {idx < items.length - 1 && (
-                <View
-                  style={{
-                    height: StyleSheet.hairlineWidth,
-                    backgroundColor: outlineVariant,
-                    marginVertical: spacing.sm / 2,
-                  }}
                 />
               )}
             </View>
