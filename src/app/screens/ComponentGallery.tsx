@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
 import { Checkbox } from '../../design-system/components/Checkbox';
-import { Card, CardHorizontal, HorizontalCardVariant } from '../../design-system/components/Card';
+import { Card, CardHorizontal, HorizontalCardVariant, CardVariant } from '../../design-system/components/Card';
 import { Text } from 'react-native-paper';
 
 const ComponentGallery: React.FC = () => {
@@ -163,6 +163,18 @@ const ComponentGallery: React.FC = () => {
         </View>
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Cards</RNText>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 8 }} contentContainerStyle={{ gap: 16 }}>
+          {/* Ejemplo CardVariant */}
+          <View style={{ width: 280 }}>
+            <CardVariant
+              title="Fundamentos de la Radio"
+              rating={1}
+              maxStars={3}
+              image={{ uri: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80' }}
+              style={{ width: '100%' }}
+              accessibilityLabel="CardVariant ejemplo"
+            />
+          </View>
+          {/* Cards existentes */}
           {[
             {
               id: '1',

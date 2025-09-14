@@ -75,7 +75,7 @@ const CardHorizontal: React.FC<HorizontalCardProps> = ({
                 variant="icon"
                 icon="check"
                 size={AVATAR_SIZE}
-                style={{ backgroundColor: theme.colors.secondaryContainer }}
+                style={{ backgroundColor: theme.colors.primaryContainer }}
                 accessibilityLabel="Completado"
               />
             ) : (
