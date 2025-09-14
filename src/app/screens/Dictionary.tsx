@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 
 const Dictionary: React.FC = () => (
   <SafeAreaView style={styles.safe}>
-    <AppBar title="Diccionario" badgeCount={0} onPressLeft={() => { }} />
+    <AppBar title="Diccionario" onClick={() => { }} />
     <View style={styles.content}>
       <Text variant="headlineMedium">Diccionario</Text>
       <Text>Glosario y términos (placeholder)</Text>

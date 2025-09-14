@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 
 const Community: React.FC = () => (
   <SafeAreaView style={styles.safe}>
-    <AppBar title="Comunidad" badgeCount={0} onPressLeft={() => { }} />
+    <AppBar title="Comunidad" onClick={() => { }} />
     <View style={styles.content}>
       <Text variant="headlineMedium">Comunidad</Text>
       <Text>Listado o feed de comunidad (placeholder)</Text>

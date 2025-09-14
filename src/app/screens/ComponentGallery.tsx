@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 import { Avatar } from '../../design-system/components/Avatar';
 import { Badge } from '../../design-system/components/Badge';
 import { BottomSheet } from '../../design-system/components/BottomSheet';
-import { Button } from 'react-native-paper';
+import { Button } from '../../design-system/components/Button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'react-native-paper';
 import { tokens } from '../../design-system/theme';
@@ -38,9 +38,7 @@ const ComponentGallery: React.FC = () => {
           <Badge variant="small" accessibilityLabel="Alerta pequeña" />
         </View>
         <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>BottomSheet</RNText>
-        <Button mode="contained" onPress={() => setSheetVisible(true)} style={{ marginBottom: 12 }}>
-          Abrir BottomSheet
-        </Button>
+        <Button label="Abrir BottomSheet" variant="filled" onPress={() => setSheetVisible(true)} style={{ marginBottom: 12 }} />
         <BottomSheet
           visible={sheetVisible}
           onDismiss={() => setSheetVisible(false)}
@@ -48,6 +46,19 @@ const ComponentGallery: React.FC = () => {
         >
           <RNText>Este es el contenido del BottomSheet. Puedes poner aquí cualquier componente.</RNText>
         </BottomSheet>
+        <RNText style={{ marginVertical: 16, fontWeight: 'bold', fontSize: 18 }}>Buttons</RNText>
+        <View style={{ gap: 12 }}>
+          <Button label="Filled" variant="filled" size="medium" icon="check" />
+          <Button label="Filled Disabled" variant="filled" size="medium" disabled />
+          <Button label="Tonal" variant="tonal" size="medium" icon="star-outline" />
+          <Button label="Outline" variant="outline" size="medium" icon="send" />
+          <Button label="Elevated" variant="elevated" size="medium" icon="star-outline" />
+          <Button label="Text" variant="text" size="medium" icon="send" />
+          <Button label="Small" variant="filled" size="small" />
+          <Button label="Large" variant="filled" size="large" />
+          <Button label="Loading" variant="filled" loading />
+          <Button label="Full Width" variant="filled" fullWidth />
+        </View>
         {/* Add more component examples here */}
       </ScrollView>
     </DesignSystemProvider>

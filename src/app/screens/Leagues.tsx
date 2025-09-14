@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 
 const Leagues: React.FC = () => (
   <SafeAreaView style={styles.safe}>
-    <AppBar title="Ligas" badgeCount={0} onPressLeft={() => { }} />
+    <AppBar title="Ligas" onClick={() => { }} />
     <View style={styles.content}>
       <Text variant="headlineMedium">Ligas</Text>
       <Text>Información de ligas (placeholder)</Text>

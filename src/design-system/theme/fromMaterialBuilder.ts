@@ -1,5 +1,5 @@
 // src/design-system/theme/fromMaterialBuilder.ts
-import type { MD3Theme } from 'react-native-paper';
+import type { MD3Theme, MD3Colors } from 'react-native-paper';
 
 /**
  * buildThemeFromTokens: Genera un objeto MD3Theme para react-native-paper
@@ -14,10 +14,24 @@ export function normalizeColor(value: string | undefined): string {
 
 type TokensShape = any; // ajusta si tipas tus tokens
 
+function toRgba(hex: string, opacity: number): string {
+  // Simple hex to rgba converter, fallback to black if invalid
+  if (!hex || typeof hex !== 'string') return `rgba(0,0,0,${opacity})`;
+  let c = hex.replace('#', '');
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  if (c.length !== 6) return `rgba(0,0,0,${opacity})`;
+  const r = parseInt(c.substring(0, 2), 16);
+  const g = parseInt(c.substring(2, 4), 16);
+  const b = parseInt(c.substring(4, 6), 16);
+  return `rgba(${r},${g},${b},${opacity})`;
+}
+
 export function buildThemeFromTokens(tokens: TokensShape, mode: 'light' | 'dark'): MD3Theme {
   const scheme = tokens.schemes?.[mode] ?? tokens.schemes?.light ?? {};
 
   // --- Colors: cubrir todas las keys que MD3 espera ---
+  const surfaceBase = scheme.surface ?? '#FFFFFF';
+  const onSurfaceBase = scheme.onSurface ?? '#1C1B1F';
   const colors = {
     primary: normalizeColor(scheme.primary ?? '#6750A4'),
     onPrimary: normalizeColor(scheme.onPrimary ?? '#FFFFFF'),
@@ -42,24 +56,32 @@ export function buildThemeFromTokens(tokens: TokensShape, mode: 'light' | 'dark'
     background: normalizeColor(scheme.background ?? '#FFFFFF'),
     onBackground: normalizeColor(scheme.onBackground ?? '#1C1B1F'),
 
-    surface: normalizeColor(scheme.surface ?? '#FFFFFF'),
-    onSurface: normalizeColor(scheme.onSurface ?? '#1C1B1F'),
+    surface: normalizeColor(surfaceBase),
+    onSurface: normalizeColor(onSurfaceBase),
     surfaceVariant: normalizeColor(scheme.surfaceVariant ?? '#E7E0EC'),
     onSurfaceVariant: normalizeColor(scheme.onSurfaceVariant ?? '#49454F'),
 
     outline: normalizeColor(scheme.outline ?? '#79747E'),
-    inverseOnSurface: normalizeColor(scheme.inverseOnSurface ?? '#F6EFF4'),
+    outlineVariant: normalizeColor(scheme.outlineVariant ?? '#CAC4D0'),
     inverseSurface: normalizeColor(scheme.inverseSurface ?? '#313033'),
+    inverseOnSurface: normalizeColor(scheme.inverseOnSurface ?? '#F6EFF4'),
     inversePrimary: normalizeColor(scheme.inversePrimary ?? '#D0BCFF'),
 
     shadow: normalizeColor(scheme.shadow ?? '#000000'),
     scrim: normalizeColor(scheme.scrim ?? '#000000'),
-    surfaceDisabled: normalizeColor(scheme.surfaceDisabled ?? 'rgba(28,27,31,0.12)'),
-    onSurfaceDisabled: normalizeColor(scheme.onSurfaceDisabled ?? 'rgba(28,27,31,0.38)'),
+    surfaceDisabled: toRgba(surfaceBase, 0.12),
+    onSurfaceDisabled: toRgba(onSurfaceBase, 0.38),
     backdrop: normalizeColor(scheme.backdrop ?? 'rgba(0,0,0,0.5)'),
 
-    // notification kept for compatibility
-    notification: normalizeColor(scheme.error ?? '#B3261E'),
+    // elevation: aseguramos que exista, aunque sea con valor por defecto
+    elevation: {
+      level0: normalizeColor(scheme.elevation?.level0 ?? surfaceBase),
+      level1: normalizeColor(scheme.elevation?.level1 ?? surfaceBase),
+      level2: normalizeColor(scheme.elevation?.level2 ?? surfaceBase),
+      level3: normalizeColor(scheme.elevation?.level3 ?? surfaceBase),
+      level4: normalizeColor(scheme.elevation?.level4 ?? surfaceBase),
+      level5: normalizeColor(scheme.elevation?.level5 ?? surfaceBase),
+    },
   };
 
   // --- Fonts: MD3 requiere varias escalas con fontSize, lineHeight y letterSpacing ---
@@ -105,6 +127,8 @@ export function buildThemeFromTokens(tokens: TokensShape, mode: 'light' | 'dark'
 
   const theme: MD3Theme = {
     dark: mode === 'dark',
+    isV3: true,
+    version: 3,
     roundness: tokens.radius?.md ?? 8,
     colors,
     fonts: fonts as any, // MD3Theme espera MD3Typescale; aseguramos shape correcta arriba

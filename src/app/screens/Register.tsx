@@ -5,7 +5,7 @@ import { AppBar } from '../../design-system/components/AppBar';
 
 const Register: React.FC = () => (
   <SafeAreaView style={styles.safe}>
-    <AppBar title="Registro" badgeCount={0} onPressLeft={() => { }} />
+    <AppBar title="Registro" onClick={() => { }} />
     <View style={styles.content}>
       <Text variant="headlineMedium">Registro</Text>
       <Text>Formulario de registro (placeholder)</Text>
