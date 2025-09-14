@@ -12,7 +12,7 @@ import { radius } from '../../design-system/tokens/radius';
 
 const LoginScreen = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const onGoogle = () => { };
   const onApple = () => { };
@@ -74,7 +74,7 @@ const LoginScreen = () => {
           </Button>
           <Button
             mode="contained"
-            onPress={() => navigation.navigate('RegisterEmail' as never)}
+            onPress={() => navigation.navigate('Register')}
             style={[styles.cta, { borderRadius: radius.round, backgroundColor: theme.colors.primaryContainer }]}
             contentStyle={styles.ctaContent}
             textColor={theme.colors.onPrimaryContainer}

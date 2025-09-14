@@ -17,7 +17,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { adaptNavigationTheme } from "react-native-paper";
 
 import ComponentGallery from "./src/app/screens/ComponentGallery";
-import LoginScreen from "./src/app/screens/LoginScreen";
+import LoginScreen from "./src/app/navigation/LoginScreen";
 import RegisterEmailScreen from "./src/app/screens/Register";
 import OnboardingWizard from "./src/app/screens/Onboarding/Onboarding";
 import MainTabs from "./src/app/screens/MainTabs";
@@ -98,10 +98,7 @@ const App = () => {
                 component={ComponentGallery}
               />
               <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen
-                name="RegisterEmail"
-                component={RegisterEmailScreen}
-              />
+              <Stack.Screen name="Register" component={RegisterEmailScreen} />
               <Stack.Screen name="Onboarding" component={OnboardingWizard} />
               <Stack.Screen name="MainTabs" component={MainTabs} />
               <Stack.Screen name="Splash" component={SplashScreen} />
