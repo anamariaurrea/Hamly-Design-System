@@ -23,7 +23,7 @@ export interface ListItemImageProps {
 }
 
 const AVATAR = 56;
-const BORDER_RADIUS = radius.lg ?? 16;
+const BORDER_RADIUS = radius.sm ?? 8;
 
 export const ListItemImage: React.FC<ListItemImageProps> = ({
   title,
@@ -52,7 +52,11 @@ export const ListItemImage: React.FC<ListItemImageProps> = ({
       onPress={onPress}
       style={[
         styles.root,
-        { backgroundColor: theme.colors.surface },
+        {
+          backgroundColor: theme.colors.surface,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderBottomColor: theme.colors.outlineVariant,
+        },
         style,
       ]}
       rippleColor={rippleColor}
@@ -133,14 +137,6 @@ export const ListItemImage: React.FC<ListItemImageProps> = ({
             </Text>
           </View>
         </View>
-        {/* Divider */}
-        <View
-          style={{
-            height: StyleSheet.hairlineWidth,
-            backgroundColor: theme.colors.outlineVariant,
-            marginTop: spacing(1),
-          }}
-        />
       </View>
     </TouchableRipple>
   );

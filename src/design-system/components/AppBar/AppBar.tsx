@@ -114,10 +114,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 20,
-    paddingHorizontal: 0, // Eliminamos padding para que el SplitButton maneje su propio spacing
+    paddingHorizontal: 0,
     paddingVertical: 8, // Padding vertical consistente
     elevation: 1,
     height: 40, // Altura fija para el pill
+    marginLeft: 12, // Compensamos el padding interno del SplitButton para alinear con otros títulos
   },
   leftIcon: {
     marginRight: 8,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 20,
-    paddingHorizontal: 0, // Eliminamos padding para que coincida con spacing.lg del contenedor
+    paddingHorizontal: 12, // Restauramos padding para que coincida con SplitButton
     paddingVertical: 8, // Padding vertical consistente
     elevation: 1,
     height: 40, // Altura fija consistente con leftPill
