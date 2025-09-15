@@ -26,32 +26,29 @@ Accede aquí al archivo de Figma con todos los componentes y su documentación:
    ```bash
    git clone https://github.com/anamariaurrea/Hamly-Design-System.git
    cd Hamly-Design-System
-Instalar dependencias:
+2. Instalar dependencias:
 
-bash
-Copiar código
+```bash
 npm install
+```
 o
 
-bash
-Copiar código
+```bash
 yarn install
-Iniciar el proyecto con Expo:
+```
+3. Iniciar el proyecto con Expo:
 
-bash
-Copiar código
+```bash
 npx expo start
-🧩 Funcionalidades principales del MVP
-Onboarding: flujo inicial guiado por pasos con selección de edad, experiencia, intereses y curso.
+yarn install
+```
+## 🧩 Funcionalidades principales del MVP
+- Onboarding: flujo inicial guiado por pasos con selección de edad, experiencia, intereses y curso.
+- Sistema de tokens: colores, tipografía, espaciado, radios y motion aplicados globalmente.
+- Componentes reutilizables: botones, checkbox, navigation bar, cards, expansion panel, etc.
+- Dark/Light mode: implementación de ThemeProvider con almacenamiento de preferencia.
+- Pantallas principales: Courses, Dictionary, Leagues, Community y Profile.
 
-Sistema de tokens: colores, tipografía, espaciado, radios y motion aplicados globalmente.
-
-Componentes reutilizables: botones, checkbox, navigation bar, cards, expansion panel, etc.
-
-Dark/Light mode: implementación de ThemeProvider con almacenamiento de preferencia.
-
-Pantallas principales: Courses, Dictionary, Leagues, Community y Profile.
-
-📖 Licencia
+## 📖 Licencia
 Este proyecto se publica con fines académicos.
 © 2025 Ana María Urrea Silva. Todos los derechos reservados.
