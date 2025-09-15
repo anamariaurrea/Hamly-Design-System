@@ -102,8 +102,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   participantsList: {
-    // Eliminamos paddingHorizontal para que las cards lleguen más al borde
-    // como en Community screen
+    paddingHorizontal: spacing.sm, // Restauramos padding para consistencia con otras listas
   },
   participantCard: {
     marginBottom: 0,

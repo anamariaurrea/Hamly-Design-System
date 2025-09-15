@@ -155,7 +155,7 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
             </Text>
           ) : null}
         </View>
-        <Animated.View style={{ 
+        <Animated.View style={{
           transform: [{ rotate }],
           alignSelf: 'flex-start', // Alinea con el inicio del contenedor
           marginTop: 4, // Un poco más abajo
