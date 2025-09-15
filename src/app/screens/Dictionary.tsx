@@ -50,7 +50,7 @@ const Dictionary: React.FC = () => {
             title="Unidades de Medida y Parámetros Técnicos"
             rating={1}
             maxStars={3}
-            image={{ uri: 'https://picsum.photos/seed/dictionary1/400/200' }}
+            image={require('../../../assets/dictionary-desk.png')}
             onPress={() => { }}
             style={{ marginBottom: spacing.xl }}
           />
@@ -67,7 +67,7 @@ const Dictionary: React.FC = () => {
                 title="Fundamentos de la Radio"
                 rating={1}
                 maxStars={3}
-                image={{ uri: 'https://picsum.photos/seed/dictionary2/200/150' }}
+                image={require('../../../assets/dictionary-radio.png')}
                 imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
@@ -77,7 +77,7 @@ const Dictionary: React.FC = () => {
                 title="Componentes de una estación"
                 rating={1}
                 maxStars={3}
-                image={{ uri: 'https://picsum.photos/seed/dictionary3/200/150' }}
+                image={require('../../../assets/dictionary-station.png')}
                 imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
@@ -90,7 +90,7 @@ const Dictionary: React.FC = () => {
                 title="Jerga de los radioaficionados"
                 rating={1}
                 maxStars={3}
-                image={{ uri: 'https://picsum.photos/seed/dictionary4/200/150' }}
+                image={require('../../../assets/dictionary-micro.png')}
                 imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
@@ -100,7 +100,7 @@ const Dictionary: React.FC = () => {
                 title="Conceptos Legales y de Licenciamiento"
                 rating={1}
                 maxStars={3}
-                image={{ uri: 'https://picsum.photos/seed/dictionary5/200/150' }}
+                image={require('../../../assets/dictionary-books.png')}
                 imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}

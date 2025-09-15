@@ -37,11 +37,11 @@ const Profile = () => {
             <View style={{ flexDirection: 'row', gap: 8 }}>
               <IconButton
                 icon={isDarkMode ? "weather-sunny" : "weather-night"}
-                size={32}
+                size={24}
                 onPress={toggleTheme}
                 accessibilityLabel={isDarkMode ? "Modo claro" : "Modo oscuro"}
               />
-              <IconButton icon="cog-outline" size={32} onPress={() => { }} accessibilityLabel="Ajustes" />
+              <IconButton icon="cog-outline" size={24} onPress={() => { }} accessibilityLabel="Ajustes" />
             </View>
           }
         />
