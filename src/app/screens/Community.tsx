@@ -15,7 +15,7 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/qrz/200',
+    imageUri: require('../../../assets/community-qrz.png'),
     likesCount: 21,
   },
   {
@@ -25,7 +25,7 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/articles/200',
+    imageUri: require('../../../assets/community-article.png'),
     likesCount: 21,
   },
   {
@@ -35,7 +35,7 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/radio/200',
+    imageUri: require('../../../assets/community-news.png'),
     likesCount: 21,
   },
   {
@@ -45,7 +45,7 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/videos/200',
+    imageUri: require('../../../assets/community-earphones.png'),
     likesCount: 21,
   },
   {
@@ -55,7 +55,7 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/dx/200',
+    imageUri: require('../../../assets/community-dx.png'),
     likesCount: 21,
   },
   {
@@ -65,7 +65,17 @@ const communityData = [
     date: 'Aug 11',
     year: '2018',
     preview: 'Descripción del foro',
-    imageUri: 'https://picsum.photos/seed/hamfest/200',
+    imageUri: require('../../../assets/community-ham.png'),
+    likesCount: 21,
+  },
+  {
+    id: 7,
+    title: 'Pruebas y Errores',
+    author: 'VK4HAT',
+    date: 'Aug 11',
+    year: '2018',
+    preview: 'Descripción del foro',
+    imageUri: require('../../../assets/community-test.png'),
     likesCount: 21,
   },
 ];
@@ -175,7 +185,7 @@ const Community: React.FC = () => {
                 date={item.date}
                 year={item.year}
                 preview={item.preview}
-                imageUri={item.imageUri}
+                image={item.imageUri}
                 liked={likedItems.has(item.id)}
                 likesCount={likeCounts.get(item.id) || 0}
                 onPress={() => { }}

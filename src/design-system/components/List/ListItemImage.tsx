@@ -11,7 +11,8 @@ export interface ListItemImageProps {
   date?: string;
   year?: string | number;
   preview?: string;
-  imageUri?: string;
+  imageUri?: string; // Mantener para compatibilidad hacia atrás
+  image?: any; // Nueva prop para imágenes locales
   liked?: boolean;
   likesCount?: number;
   onPress?: () => void;
@@ -31,6 +32,7 @@ export const ListItemImage: React.FC<ListItemImageProps> = ({
   year,
   preview,
   imageUri,
+  image,
   liked = false,
   likesCount = 0,
   onPress,
@@ -61,9 +63,9 @@ export const ListItemImage: React.FC<ListItemImageProps> = ({
       <View>
         <View style={styles.row}>
           {/* Left image/placeholder */}
-          {imageUri ? (
+          {(imageUri || image) ? (
             <Image
-              source={{ uri: imageUri }}
+              source={image ? image : { uri: imageUri }}
               style={{
                 width: AVATAR,
                 height: AVATAR,
