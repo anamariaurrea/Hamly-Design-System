@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8, // Padding vertical consistente
     elevation: 1,
     height: 40, // Altura fija para el pill
-    marginLeft: 12, // Compensamos el padding interno del SplitButton para alinear con otros títulos
+    marginLeft: -4, // Más a la izquierda para alinear con texto "NIVEL 1"
+    marginTop: 4, // Un poco más abajo
   },
   leftIcon: {
     marginRight: 8,
