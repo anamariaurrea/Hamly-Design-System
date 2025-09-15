@@ -57,7 +57,15 @@ const AppBar: React.FC<AppBarProps> = ({
 
   return (
     <SafeAreaView edges={['top']} style={{ backgroundColor: theme.colors.surface }}>
-      <View style={[styles.root, { backgroundColor: theme.colors.surface }, style]}>
+      <View style={[
+        styles.root,
+        {
+          backgroundColor: theme.colors.surface,
+          borderBottomWidth: 1,
+          borderBottomColor: theme.colors.outlineVariant,
+        },
+        style
+      ]}>
         {/* Left pill con SplitButton si hay leftIconName */}
         {leftIconName ? (
           <SplitButton
@@ -99,8 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    minHeight: 56,
-    paddingBottom: 8,
+    height: 64, // Altura fija para todas las variantes
     backgroundColor: 'transparent',
   },
   leftPill: {
@@ -108,8 +115,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingVertical: 8, // Padding vertical consistente
     elevation: 1,
+    height: 40, // Altura fija para el pill
   },
   leftIcon: {
     marginRight: 8,
@@ -126,6 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'transparent',
+    height: 40, // Altura consistente con el lado izquierdo
   },
   boltIcon: {
     marginRight: 4,
@@ -152,8 +161,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingVertical: 8, // Padding vertical consistente
     elevation: 1,
+    height: 40, // Altura fija consistente con leftPill
   },
 });
 
