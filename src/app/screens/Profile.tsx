@@ -27,7 +27,6 @@ const Profile = () => {
           leftIconName={undefined}
           style={{
             paddingHorizontal: spacing.lg,
-            paddingTop: spacing.md,
             position: 'absolute',
             top: 0,
             left: 0,

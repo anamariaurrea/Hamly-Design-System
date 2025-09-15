@@ -34,7 +34,7 @@ const Dictionary: React.FC = () => {
         />
 
         <ScrollView
-          style={{ flex: 1, marginTop: 2 }}
+          style={{ flex: 1, marginTop: 80 }}
           contentContainerStyle={{
             padding: spacing.lg,
             paddingBottom: spacing.xxl
@@ -68,7 +68,6 @@ const Dictionary: React.FC = () => {
                 rating={1}
                 maxStars={3}
                 image={{ uri: 'https://picsum.photos/seed/dictionary2/200/150' }}
-                imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
               />
@@ -78,7 +77,6 @@ const Dictionary: React.FC = () => {
                 rating={1}
                 maxStars={3}
                 image={{ uri: 'https://picsum.photos/seed/dictionary3/200/150' }}
-                imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
               />
@@ -91,7 +89,6 @@ const Dictionary: React.FC = () => {
                 rating={1}
                 maxStars={3}
                 image={{ uri: 'https://picsum.photos/seed/dictionary4/200/150' }}
-                imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
               />
@@ -101,7 +98,6 @@ const Dictionary: React.FC = () => {
                 rating={1}
                 maxStars={3}
                 image={{ uri: 'https://picsum.photos/seed/dictionary5/200/150' }}
-                imageHeight={100}
                 onPress={() => { }}
                 style={styles.gridCard}
               />

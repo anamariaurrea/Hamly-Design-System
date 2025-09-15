@@ -114,7 +114,6 @@ export const CoursesScreen = () => {
           onClick={() => setBottomSheetVisible(true)}
           style={{
             paddingHorizontal: spacing.lg,
-            paddingTop: spacing.md,
             backgroundColor: theme.colors.background,
             position: 'absolute',
             top: 0,

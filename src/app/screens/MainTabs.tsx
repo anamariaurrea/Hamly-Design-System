@@ -48,7 +48,11 @@ function NavBarBridge({ state, navigation }: BottomTabBarProps) {
 
   const items = state.routes.map((r) => ({
     key: r.name,
-    label: r.name === "Courses" ? "Cursos" : r.name,
+    label: r.name === "Courses" ? "Cursos" :
+      r.name === "Dictionary" ? "Diccionario" :
+        r.name === "Leagues" ? "Ligas" :
+          r.name === "Community" ? "Comunidad" :
+            r.name === "Profile" ? "Perfil" : r.name,
     icon: ({ color, size = 22 }: { color: string; size?: number }) => (
       <MaterialCommunityIcons
         name={ICONS[r.name as keyof typeof ICONS]}

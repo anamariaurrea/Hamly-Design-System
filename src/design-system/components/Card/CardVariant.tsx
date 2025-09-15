@@ -9,6 +9,7 @@ export interface CardVariantProps {
   rating?: number;
   maxStars?: number;
   image?: { uri: string };
+  imageHeight?: number;
   onPress?: () => void;
   style?: ViewStyle;
   accessibilityLabel?: string;
@@ -16,13 +17,14 @@ export interface CardVariantProps {
 
 const IMAGE_HEIGHT = 130;
 const IMAGE_RADIUS = 12;
-const STAR_SIZE = 22;
+const STAR_SIZE = 24;
 
 export const CardVariant: React.FC<CardVariantProps> = ({
   title,
   rating = 0,
   maxStars = 3,
   image,
+  imageHeight = IMAGE_HEIGHT,
   onPress,
   style,
   accessibilityLabel,
@@ -56,7 +58,7 @@ export const CardVariant: React.FC<CardVariantProps> = ({
             source={image}
             style={{
               width: '100%',
-              height: IMAGE_HEIGHT,
+              height: imageHeight,
               borderRadius: IMAGE_RADIUS, // redondeo igual en todos los bordes
             }}
             resizeMode="cover"
@@ -66,7 +68,7 @@ export const CardVariant: React.FC<CardVariantProps> = ({
           <View
             style={{
               width: '100%',
-              height: IMAGE_HEIGHT,
+              height: imageHeight,
               backgroundColor: theme.colors.surfaceVariant,
               borderRadius: IMAGE_RADIUS, // redondeo igual en todos los bordes
               justifyContent: 'center',

@@ -82,13 +82,13 @@ const Community: React.FC = () => {
     setLikedItems(prev => {
       const newSet = new Set(prev);
       const isCurrentlyLiked = newSet.has(itemId);
-      
+
       if (isCurrentlyLiked) {
         newSet.delete(itemId);
       } else {
         newSet.add(itemId);
       }
-      
+
       // Update like count
       setLikeCounts(prevCounts => {
         const newCounts = new Map(prevCounts);
@@ -100,7 +100,7 @@ const Community: React.FC = () => {
         }
         return newCounts;
       });
-      
+
       return newSet;
     });
   };
