@@ -17,7 +17,9 @@ const LoginScreen = () => {
   const onGoogle = () => { };
   const onApple = () => { };
   const onFacebook = () => { };
-  const onSignIn = () => { };
+  const onSignIn = () => {
+    navigation.navigate('MainTabs');
+  };
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.colors.background }]} accessibilityLabel="Login">
@@ -85,8 +87,8 @@ const LoginScreen = () => {
           <Button
             mode="text"
             onPress={onSignIn}
-            style={{}} // Elimina estilos de ancho y alineación para que parezca link
-            contentStyle={{}}
+            style={[styles.cta, { borderRadius: radius.round }]}
+            contentStyle={styles.ctaContent}
             textColor={theme.colors.primary}
             accessibilityLabel="Iniciar sesión"
           >
