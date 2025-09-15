@@ -78,8 +78,8 @@ const SplitButton: React.FC<SplitButtonProps> = ({
             borderTopLeftRadius: borderRadius,
             borderBottomLeftRadius: borderRadius,
             borderRightWidth: 0,
-            paddingHorizontal: 12,
-            justifyContent: 'center',
+            paddingHorizontal: 0, // Eliminamos padding para que el texto esté a 24px del borde
+            justifyContent: 'flex-start', // Cambiamos a flex-start para alinear con otros títulos
             backgroundColor: 'transparent',
             minWidth: 80,
           },
