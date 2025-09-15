@@ -48,8 +48,11 @@ const Profile = () => {
         />
 
         <ScrollView
-          style={{ flex: 1, marginTop: 64 }}
-          contentContainerStyle={{ padding: spacing.lg }}
+          style={{ flex: 1, marginTop: 2 }}
+          contentContainerStyle={{
+            padding: spacing.lg,
+            paddingBottom: spacing.xxl
+          }}
           showsVerticalScrollIndicator={false}
         >
           {/* Avatar y botón editar */}

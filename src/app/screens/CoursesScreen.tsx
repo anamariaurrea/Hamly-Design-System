@@ -124,7 +124,7 @@ export const CoursesScreen = () => {
           }}
         />
         <ScrollView
-          style={{ flex: 1, marginTop: 0 }}
+          style={{ flex: 1, marginTop: 2 }}
           contentContainerStyle={{
             paddingHorizontal: spacing.sm,
             paddingTop: spacing.md,
@@ -148,14 +148,13 @@ export const CoursesScreen = () => {
                   onPress: () => { },
                 }))}
                 style={{
-                  marginBottom: spacing.md,
                   borderRadius: radius.lg,
                   borderColor: theme.colors.outlineVariant,
                   backgroundColor: theme.colors.surface,
                 }}
               />
               {expanded === level.id && (
-                <View style={{ marginTop: 16, gap: 8, marginBottom: 16 }}>
+                <View style={{ gap: 8, marginBottom: 16 }}>
                   {idx === 0 ? (
                     <>
                       <CardHorizontal
@@ -248,7 +247,7 @@ export const CoursesScreen = () => {
             accessibilityLabel="Opciones de curso"
             style={{ marginBottom: 16 }}
           />
-          <View style={{ gap: 8, marginBottom: 16 }}>
+          <View style={{ gap: 8 }}>
             <CardHorizontal
               key="bottomsheet-card-1"
               title="¿Qué es la radioafición?"
