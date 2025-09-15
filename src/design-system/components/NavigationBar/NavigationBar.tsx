@@ -123,10 +123,11 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end', // mueve los elementos hacia abajo
     justifyContent: 'space-between',
-    height: 64,
-    paddingHorizontal: 12,
+    height: 93, // altura fija
+    paddingHorizontal: 0, // padding aumentado para mejor alineación
+    paddingBottom: 0, // padding inferior para que los logos no se corten
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#E0E0E0',
   },

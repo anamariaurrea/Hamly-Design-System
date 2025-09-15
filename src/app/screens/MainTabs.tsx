@@ -74,7 +74,6 @@ function NavBarBridge({ state, navigation }: BottomTabBarProps) {
   return (
     <View
       style={[styles.bar, {
-        paddingBottom: insets.bottom,
         backgroundColor: theme.colors.surfaceVariant,
       }]}
     >
@@ -82,9 +81,7 @@ function NavBarBridge({ state, navigation }: BottomTabBarProps) {
         items={items}
         selectedKey={selectedKey}
         onChange={onPress}
-        style={{
-          backgroundColor: theme.colors.surfaceVariant,
-        }}
+        style={{ backgroundColor: theme.colors.surfaceVariant }}
       />
     </View>
   );

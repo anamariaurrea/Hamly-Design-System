@@ -110,6 +110,7 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
   const surface = theme.colors.surface;
   const surfaceVariant = theme.colors.surfaceVariant ?? theme.colors.background;
   const onSurface = theme.colors.onSurface;
+  const onPrimaryContainer = theme.colors.onPrimaryContainer;
   const onSurfaceVariant =
     theme.colors.onSurfaceVariant ?? theme.colors.onSurface;
 
@@ -145,7 +146,7 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
               {levelLabel}
             </Text>
           ) : null}
-          <Text style={{ color: onSurface, fontSize: 16, fontWeight: "600" }}>
+          <Text style={{ color: onPrimaryContainer, fontSize: 22, fontWeight: "600" }}>
             {title}
           </Text>
           {subtitle ? (
