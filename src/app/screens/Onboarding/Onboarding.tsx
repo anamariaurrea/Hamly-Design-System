@@ -9,6 +9,7 @@ import { radius } from '../../../design-system/tokens/radius';
 import { Button as CustomButton } from '../../../design-system/components/Button';
 import { Checkbox } from '../../../design-system/components/Checkbox';
 import { Step3Interests } from './Step3Interests';
+import { Step4Courses } from './Step4Courses';
 
 const AGE_OPTIONS = ['Menor de 15 años', '15 - 25 años', '26 - 45 años', '46 años o más'];
 const EXP_OPTIONS = [
@@ -34,6 +35,7 @@ const OnboardingWelcome: React.FC = () => {
   const [ageAnchorWidth, setAgeAnchorWidth] = React.useState<number>(0);
   const [expAnchorWidth, setExpAnchorWidth] = React.useState<number>(0);
   const [step, setStep] = React.useState(0);
+  const [interestsCount, setInterestsCount] = React.useState(0);
 
   const canContinue = !!age && !!experience;
 
@@ -50,7 +52,7 @@ const OnboardingWelcome: React.FC = () => {
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1, padding: spacing.lg, paddingBottom: spacing.xl, gap: spacing.lg }} keyboardShouldPersistTaps="handled">
           <View style={{ gap: spacing.md }}>
-            <LinearProgress variant="wave" value={step === 2 ? 0.5 : step === 1 ? 0.2 : 0} height={8} transitionMs={0} style={{ marginBottom: 10 }} />
+            <LinearProgress variant="wave" value={step === 3 ? 1 : step === 2 ? 0.5 : step === 1 ? 0.2 : 0} height={8} transitionMs={0} style={{ marginBottom: 10 }} />
             {step === 0 && (
               <View style={{ gap: spacing.md }}>
                 <Text
@@ -170,16 +172,23 @@ const OnboardingWelcome: React.FC = () => {
             </View>
           )}
           {step === 2 && (
-            <Step3Interests onNext={handleInterestsNext} onSkip={handleInterestsSkip} />
+            <Step3Interests
+              onNext={() => interestsCount >= 3 && setStep(3)}
+              onSkip={() => setStep(3)}
+              onChangeCount={setInterestsCount}
+            />
+          )}
+          {step === 3 && (
+            <Step4Courses finish={() => {/* aquí navegas a MainTabs o pantalla final */ }} onContinue={() => {/* igual que finish */ }} onSkip={() => {/* igual que finish */ }} />
           )}
         </ScrollView>
         <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xl + insets.bottom, backgroundColor: theme.colors.background }}>
-          <Divider style={{ marginTop: spacing.md, height: 3, backgroundColor: theme.colors.outline }} />
+          <Divider style={{ marginTop: spacing.md, height: 2, backgroundColor: theme.colors.outline }} />
           <View style={{ marginTop: spacing.md, flexDirection: 'column' }}>
             <Button
               mode="contained"
-              onPress={step === 0 ? nextStep : step === 1 ? () => setStep(2) : undefined}
-              disabled={step === 0 ? !canContinue : step === 1 ? Object.values(goals).filter(Boolean).length === 0 : false}
+              onPress={step === 0 ? nextStep : step === 1 ? () => setStep(2) : step === 2 ? () => interestsCount >= 3 && setStep(3) : undefined}
+              disabled={step === 0 ? !canContinue : step === 1 ? Object.values(goals).filter(Boolean).length === 0 : step === 2 ? interestsCount < 3 : false}
               style={{ borderRadius: radius.round, width: '100%' }}
               contentStyle={{ height: 48 }}
               accessibilityLabel="Continuar"
