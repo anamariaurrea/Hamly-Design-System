@@ -110,7 +110,10 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     <View
       style={[
         styles.container,
-        { backgroundColor: surfaceVariant, paddingBottom: Math.max(bottom, 8) },
+        {
+          backgroundColor: surfaceVariant,
+          paddingBottom: Math.max(bottom, 8),
+        },
         style,
       ]}
       testID={testID}
@@ -128,8 +131,6 @@ const styles = StyleSheet.create({
     height: 93, // altura fija
     paddingHorizontal: 0, // padding aumentado para mejor alineación
     paddingBottom: 0, // padding inferior para que los logos no se corten
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#E0E0E0',
   },
   item: {
     flex: 1,

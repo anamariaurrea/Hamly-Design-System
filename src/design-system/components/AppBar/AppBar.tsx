@@ -80,11 +80,11 @@ const AppBar: React.FC<AppBarProps> = ({
             <>
               <MaterialCommunityIcons
                 name={boltIconName}
-                size={22}
-                color={theme.colors.primary}
+                size={32}
+                color={theme.colors.outlineVariant}
                 style={styles.boltIcon}
               />
-              <Text style={[styles.count, { color: theme.colors.primary }]}>{count}</Text>
+              <Text style={[styles.count, { color: theme.colors.onSurfaceVariant }]}>{count}</Text>
             </>
           )}
         </View>
