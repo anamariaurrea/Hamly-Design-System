@@ -8,6 +8,7 @@ import { spacing } from '../../../design-system/tokens/spacing';
 import { radius } from '../../../design-system/tokens/radius';
 import { Button as CustomButton } from '../../../design-system/components/Button';
 import { Checkbox } from '../../../design-system/components/Checkbox';
+import { Step3Interests } from './Step3Interests';
 
 const AGE_OPTIONS = ['Menor de 15 años', '15 - 25 años', '26 - 45 años', '46 años o más'];
 const EXP_OPTIONS = [
@@ -36,14 +37,20 @@ const OnboardingWelcome: React.FC = () => {
 
   const canContinue = !!age && !!experience;
 
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 2));
+  const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
+  const handleInterestsNext = (selected: string[]) => {
+    // Aquí puedes guardar los intereses seleccionados y navegar al siguiente paso o finalizar
+  };
+  const handleInterestsSkip = () => {
+    // Aquí puedes manejar el caso de omisión
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1, padding: spacing.lg, paddingBottom: spacing.xl, gap: spacing.lg }} keyboardShouldPersistTaps="handled">
           <View style={{ gap: spacing.md }}>
-            <LinearProgress variant="wave" value={step === 0 ? 0 : step === 1 ? 0.2 : 0} height={8} transitionMs={0} style={{ marginBottom: 10 }} />
+            <LinearProgress variant="wave" value={step === 2 ? 0.5 : step === 1 ? 0.2 : 0} height={8} transitionMs={0} style={{ marginBottom: 10 }} />
             {step === 0 && (
               <View style={{ gap: spacing.md }}>
                 <Text
@@ -154,7 +161,6 @@ const OnboardingWelcome: React.FC = () => {
                       <Checkbox
                         state={checked ? 'checked' : 'unchecked'}
                         onPress={() => setGoals((prev) => ({ ...prev, [label]: !prev[label] }))}
-                        color={theme.colors.primary}
                         testID={`goal-${label}`}
                       />
                     </Pressable>
@@ -163,14 +169,17 @@ const OnboardingWelcome: React.FC = () => {
               </View>
             </View>
           )}
+          {step === 2 && (
+            <Step3Interests onNext={handleInterestsNext} onSkip={handleInterestsSkip} />
+          )}
         </ScrollView>
         <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xl + insets.bottom, backgroundColor: theme.colors.background }}>
           <Divider style={{ marginTop: spacing.md, height: 3, backgroundColor: theme.colors.outline }} />
           <View style={{ marginTop: spacing.md, flexDirection: 'column' }}>
             <Button
               mode="contained"
-              onPress={step === 0 ? nextStep : () => { }}
-              disabled={!canContinue}
+              onPress={step === 0 ? nextStep : step === 1 ? () => setStep(2) : undefined}
+              disabled={step === 0 ? !canContinue : step === 1 ? Object.values(goals).filter(Boolean).length === 0 : false}
               style={{ borderRadius: radius.round, width: '100%' }}
               contentStyle={{ height: 48 }}
               accessibilityLabel="Continuar"
