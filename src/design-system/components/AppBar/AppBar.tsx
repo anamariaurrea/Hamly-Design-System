@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { Text, useTheme, IconButton } from 'react-native-paper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SplitButton from '../Button/SplitButton';
 
 // Usamos SafeAreaView para respetar la zona segura superior (notch/status bar) en headers.
 
@@ -13,6 +14,7 @@ export interface AppBarProps {
   title?: string;
   count?: number;
   style?: ViewStyle;
+  rightIcons?: React.ReactNode; // NUEVA PROP para iconos personalizados a la derecha
 }
 
 // Named export for AppBarContent if needed elsewhere
@@ -32,7 +34,7 @@ export const AppBarContent: React.FC<Pick<AppBarProps, 'title' | 'count'>> = ({
       />
       <View style={styles.boltContainer}>
         <MaterialCommunityIcons
-          name="bolt"
+          name='star'
           size={20}
           color={theme.colors.primary}
         />
@@ -44,48 +46,47 @@ export const AppBarContent: React.FC<Pick<AppBarProps, 'title' | 'count'>> = ({
 
 const AppBar: React.FC<AppBarProps> = ({
   onClick,
-  leftIconName = 'book-outline',
-  boltIconName = 'bolt',
+  leftIconName,
+  boltIconName = 'star',
   title = 'Cursos',
   count = 0,
   style,
+  rightIcons,
 }) => {
   const theme = useTheme();
 
   return (
     <SafeAreaView edges={['top']} style={{ backgroundColor: theme.colors.surface }}>
       <View style={[styles.root, { backgroundColor: theme.colors.surface }, style]}>
-        {/* Left pill with icon and title */}
-        <TouchableOpacity
-          style={[styles.leftPill, { backgroundColor: theme.colors.surface }]}
-          onPress={onClick}
-          activeOpacity={0.7}
-          accessibilityRole="button"
-          accessibilityLabel={title}
-        >
-          <MaterialCommunityIcons
-            name={leftIconName}
-            size={22}
-            color={theme.colors.primary}
-            style={styles.leftIcon}
+        {/* Left pill con SplitButton si hay leftIconName */}
+        {leftIconName ? (
+          <SplitButton
+            icon="chevron-down"
+            label={title}
+            onPrimaryPress={onClick}
+            onSecondaryPress={onClick} // El botón secundario también activa el BottomSheet
+            style={styles.leftPill}
           />
-          <Text style={[styles.pillText, { color: theme.colors.onSurface }]}>{title}</Text>
-          <MaterialCommunityIcons
-            name="chevron-down"
-            size={20}
-            color={theme.colors.onSurface}
-            style={styles.chevron}
-          />
-        </TouchableOpacity>
-        {/* Right bolt icon and count */}
+        ) : (
+          <View style={styles.leftTitleOnly}>
+            <Text style={[styles.pillText, { color: theme.colors.onSurface }]}>{title}</Text>
+          </View>
+        )}
+        {/* Right icons personalizados o bolt+count por defecto */}
         <View style={styles.rightContainer}>
-          <MaterialCommunityIcons
-            name={boltIconName}
-            size={22}
-            color={theme.colors.primary}
-            style={styles.boltIcon}
-          />
-          <Text style={[styles.count, { color: theme.colors.primary }]}>{count}</Text>
+          {rightIcons ? (
+            rightIcons
+          ) : (
+            <>
+              <MaterialCommunityIcons
+                name={boltIconName}
+                size={22}
+                color={theme.colors.primary}
+                style={styles.boltIcon}
+              />
+              <Text style={[styles.count, { color: theme.colors.primary }]}>{count}</Text>
+            </>
+          )}
         </View>
       </View>
     </SafeAreaView>
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   pillText: {
-    fontSize: 16,
+    fontSize: 22, // Cambiado a tamaño 22 para title large
     fontWeight: '500',
     marginRight: 4,
   },
@@ -143,8 +144,16 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   title: {
-    fontSize: 16,
+    fontSize: 22, // Cambiado a tamaño 22 para title large
     fontWeight: '500',
+  },
+  leftTitleOnly: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    elevation: 1,
   },
 });
 

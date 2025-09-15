@@ -91,6 +91,7 @@ const SegmentedButtons: React.FC<SegmentedButtonsProps> = ({
       labelStyle: {
         color: selected ? colors.onSecondaryContainer : colors.onSurface,
         fontWeight: '600' as TextStyle['fontWeight'],
+        fontSize: 14, // tamaño de letra ajustado
       } as StyleProp<TextStyle>,
       iconColor: selected ? colors.onSecondaryContainer : colors.onSurface,
       accessibilityState: { selected },

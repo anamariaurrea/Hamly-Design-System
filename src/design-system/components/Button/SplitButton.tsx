@@ -34,7 +34,7 @@ const SplitButton: React.FC<SplitButtonProps> = ({
   label,
   onPrimaryPress,
   onSecondaryPress,
-  icon = 'chevron-down',
+  icon = 'arrow-down', // Cambiado a arrow-down
   disabled = false,
   loading = false,
   fullWidth = false,
@@ -61,7 +61,8 @@ const SplitButton: React.FC<SplitButtonProps> = ({
           height,
           opacity,
           backgroundColor: 'transparent',
-          width: fullWidth ? '100%' : undefined,
+          width: fullWidth ? '100%' : 'auto',
+          alignSelf: 'flex-start',
         },
         style,
       ]}
@@ -77,10 +78,10 @@ const SplitButton: React.FC<SplitButtonProps> = ({
             borderTopLeftRadius: borderRadius,
             borderBottomLeftRadius: borderRadius,
             borderRightWidth: 0,
-            paddingHorizontal: 16,
-            flex: 1,
+            paddingHorizontal: 12,
             justifyContent: 'center',
             backgroundColor: 'transparent',
+            minWidth: 80,
           },
         ]}
         android_ripple={{ color: outlineColor + '22' }}
@@ -90,7 +91,7 @@ const SplitButton: React.FC<SplitButtonProps> = ({
         accessibilityLabel={label}
         accessibilityState={{ disabled, busy: loading }}
       >
-        <View style={styles.labelRow}>
+        <View style={[styles.labelRow, { justifyContent: 'center' }]}>
           {loading && (
             <ActivityIndicator
               size={16}
@@ -126,9 +127,7 @@ const SplitButton: React.FC<SplitButtonProps> = ({
             width: height,
             borderTopRightRadius: borderRadius,
             borderBottomRightRadius: borderRadius,
-            borderLeftWidth: 1,
-            borderColor: outlineColor,
-            marginLeft: -1,
+            borderLeftWidth: 0,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'transparent',
