@@ -15,6 +15,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { adaptNavigationTheme } from "react-native-paper";
+import { schemes } from './src/design-system/tokens/color';
 
 import ComponentGallery from "./src/app/screens/ComponentGallery";
 import LoginScreen from "./src/app/navigation/LoginScreen";
@@ -29,29 +30,6 @@ export const ThemeContext = React.createContext({
   toggle: () => { },
 });
 
-const lightColors = {
-  primary: '#425E91',
-  background: '#FFFFFF',
-  surface: '#FFFFFF',
-  onSurface: '#111111',
-  onSurfaceVariant: '#666666',
-  outline: '#E0E0E0',
-  outlineVariant: '#E0E0E0',
-  primaryContainer: '#E3ECF7', // azul claro
-  onPrimaryContainer: '#1A2B4D', // texto sobre azul claro
-};
-const darkColors = {
-  primary: '#9FC1FF',
-  background: '#0B0F14',
-  surface: '#0F141A',
-  onSurface: '#EDEFF3',
-  onSurfaceVariant: '#A9B3BE',
-  outline: '#27313B',
-  outlineVariant: '#27313B',
-  primaryContainer: '#22304A', // azul oscuro
-  onPrimaryContainer: '#CFE2FF', // texto sobre azul oscuro
-};
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -59,14 +37,15 @@ const App = () => {
   const [isDark, setIsDark] = React.useState(colorScheme === "dark");
   const toggle = React.useCallback(() => setIsDark((d) => !d), []);
 
-  // Extiende el tema MD3
+  // Usa los tokens del DS
   const theme = React.useMemo(() => {
     const base = isDark ? MD3DarkTheme : MD3LightTheme;
+    const dsColors = isDark ? schemes.dark : schemes.light;
     return {
       ...base,
       colors: {
         ...base.colors,
-        ...(isDark ? darkColors : lightColors),
+        ...dsColors,
       },
     };
   }, [isDark]);

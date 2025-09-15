@@ -9,7 +9,7 @@ import { radius } from '../../tokens/radius';
 export type NavItem = {
   key: string;
   label: string;
-  icon: string;
+  icon: ((props: { color: string; size?: number }) => React.ReactNode) | string;
   badge?: number;
   disabled?: boolean;
 };
@@ -64,6 +64,11 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     const labelColor = selected ? primary : onSurfaceVariant;
     const opacity = disabled ? 0.38 : 1;
 
+    const iconNode =
+      typeof item.icon === 'function'
+        ? item.icon({ color: iconColor, size: ICON_SIZE })
+        : <Icon source={item.icon as any} size={ICON_SIZE} color={iconColor} />;
+
     return (
       <TouchableRipple
         key={item.key}
@@ -79,7 +84,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       >
         <View style={{ alignItems: 'center', opacity }}>
           <View style={[styles.pill, selected && { backgroundColor: primaryContainer }]}>
-            <Icon source={item.icon} size={ICON_SIZE} color={iconColor} />
+            {iconNode}
             {typeof item.badge === 'number' && item.badge > 0 && (
               <View style={[styles.badge, { backgroundColor: primary }]}>
                 <Text variant="labelSmall" style={{ color: theme.colors.onPrimary }} numberOfLines={1}>
@@ -118,10 +123,10 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    minHeight: 64,
-    paddingHorizontal: spacing(2),
+    height: 64,
+    paddingHorizontal: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#E0E0E0',
   },

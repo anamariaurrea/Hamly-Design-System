@@ -52,6 +52,16 @@ export const Step4Courses = ({ finish }: { finish: () => void }) => {
             );
           })}
         </ScrollView>
+        <Button
+          mode="contained"
+          onPress={finish}
+          disabled={!canContinue}
+          style={{ marginTop: 32, borderRadius: 24 }}
+          contentStyle={{ height: 48 }}
+          accessibilityLabel="Continuar"
+        >
+          Continuar
+        </Button>
       </ScrollView>
     </View>
   );

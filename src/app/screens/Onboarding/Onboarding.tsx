@@ -10,6 +10,7 @@ import { Button as CustomButton } from '../../../design-system/components/Button
 import { Checkbox } from '../../../design-system/components/Checkbox';
 import { Step3Interests } from './Step3Interests';
 import { Step4Courses } from './Step4Courses';
+import { useNavigation } from '@react-navigation/native';
 
 const AGE_OPTIONS = ['Menor de 15 años', '15 - 25 años', '26 - 45 años', '46 años o más'];
 const EXP_OPTIONS = [
@@ -26,6 +27,7 @@ const GOALS = [
 
 const OnboardingWelcome: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const [age, setAge] = React.useState<string | null>(null);
   const [experience, setExperience] = React.useState<string | null>(null);
@@ -179,7 +181,7 @@ const OnboardingWelcome: React.FC = () => {
             />
           )}
           {step === 3 && (
-            <Step4Courses finish={() => {/* aquí navegas a MainTabs o pantalla final */ }} onContinue={() => {/* igual que finish */ }} onSkip={() => {/* igual que finish */ }} />
+            <Step4Courses finish={() => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] })} />
           )}
         </ScrollView>
         <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xl + insets.bottom, backgroundColor: theme.colors.background }}>
@@ -187,13 +189,29 @@ const OnboardingWelcome: React.FC = () => {
           <View style={{ marginTop: spacing.md, flexDirection: 'column' }}>
             <Button
               mode="contained"
-              onPress={step === 0 ? nextStep : step === 1 ? () => setStep(2) : step === 2 ? () => interestsCount >= 3 && setStep(3) : undefined}
-              disabled={step === 0 ? !canContinue : step === 1 ? Object.values(goals).filter(Boolean).length === 0 : step === 2 ? interestsCount < 3 : false}
+              onPress={
+                step === 0
+                  ? nextStep
+                  : step === 1
+                    ? () => setStep(2)
+                    : step === 2
+                      ? () => interestsCount >= 3 && setStep(3)
+                      : () => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' as never }] })
+              }
+              disabled={
+                step === 0
+                  ? !canContinue
+                  : step === 1
+                    ? Object.values(goals).filter(Boolean).length === 0
+                    : step === 2
+                      ? interestsCount < 3
+                      : false
+              }
               style={{ borderRadius: radius.round, width: '100%' }}
               contentStyle={{ height: 48 }}
-              accessibilityLabel="Continuar"
+              accessibilityLabel={step < 3 ? "Continuar" : "Ir a cursos"}
             >
-              Continuar
+              {step < 3 ? 'Continuar' : 'Ir a cursos'}
             </Button>
             <View style={{ height: 8 }} />
             <Button
