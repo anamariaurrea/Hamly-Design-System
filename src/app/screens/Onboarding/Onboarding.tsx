@@ -11,6 +11,8 @@ import { Checkbox } from '../../../design-system/components/Checkbox';
 import { Step3Interests } from './Step3Interests';
 import { Step4Courses } from './Step4Courses';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../types/navigation';
 
 const AGE_OPTIONS = ['Menor de 15 años', '15 - 25 años', '26 - 45 años', '46 años o más'];
 const EXP_OPTIONS = [
@@ -25,9 +27,11 @@ const GOALS = [
   'Solo estoy explorando y viendo de qué se trata la radioafición.',
 ];
 
+type OnboardingNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
+
 const OnboardingWelcome: React.FC = () => {
   const theme = useTheme();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<OnboardingNavigationProp>();
   const insets = useSafeAreaInsets();
   const [age, setAge] = React.useState<string | null>(null);
   const [experience, setExperience] = React.useState<string | null>(null);
@@ -196,7 +200,7 @@ const OnboardingWelcome: React.FC = () => {
                     ? () => setStep(2)
                     : step === 2
                       ? () => interestsCount >= 3 && setStep(3)
-                      : () => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' as never }] })
+                      : () => navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] })
               }
               disabled={
                 step === 0

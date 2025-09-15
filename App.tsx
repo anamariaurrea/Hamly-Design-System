@@ -12,15 +12,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { adaptNavigationTheme } from "react-native-paper";
 import { useTheme } from "react-native-paper";
 
-import ComponentGallery from "./src/app/screens/ComponentGallery";
-import LoginScreen from "./src/app/navigation/LoginScreen";
+import LoginScreen from "./src/app/screens/LoginScreen";
 import RegisterEmailScreen from "./src/app/screens/Register";
 import OnboardingWizard from "./src/app/screens/Onboarding/Onboarding";
 import MainTabs from "./src/app/screens/MainTabs";
-import SplashScreen from "./src/app/screens/SplashScreen";
 import { ThemeProvider, useAppTheme } from "./src/design-system/providers/ThemeProvider";
+import { RootStackParamList } from "./src/types/navigation";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
   const theme = useTheme();
@@ -43,15 +42,10 @@ const AppNavigator = () => {
       />
       <NavigationContainer theme={navTheme}>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name="ComponentGallery"
-            component={ComponentGallery}
-          />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterEmailScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingWizard} />
           <Stack.Screen name="MainTabs" component={MainTabs} />
-          <Stack.Screen name="Splash" component={SplashScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

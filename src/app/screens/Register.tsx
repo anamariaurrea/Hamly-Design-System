@@ -3,13 +3,17 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View, ScrollView } from 're
 import { useTheme, Button, Text, Appbar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextField } from '../../design-system/components/TextField';
 import { spacing } from '../../design-system/tokens/spacing';
 import { radius } from '../../design-system/tokens/radius';
+import { RootStackParamList } from '../../types/navigation';
+
+type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
 
 const RegisterScreen: React.FC = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<RegisterScreenNavigationProp>();
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

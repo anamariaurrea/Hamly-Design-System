@@ -5,14 +5,17 @@ import { Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { spacing } from '../../design-system/tokens/spacing';
 import { radius } from '../../design-system/tokens/radius';
+import { RootStackParamList } from '../../types/navigation';
 
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 const LoginScreen = () => {
   const theme = useTheme();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const onGoogle = () => { };
   const onApple = () => { };
